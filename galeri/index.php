@@ -13,7 +13,7 @@ $total_rows = $total_result->fetch_assoc()['total'];
 $total_pages = ceil($total_rows / $limit);
 
 // Ambil data sesuai halaman
-$result = $conn->query("SELECT * FROM galeri ORDER BY created_at DESC LIMIT $limit OFFSET $offset");
+$result = $conn->query("SELECT * FROM galeri ORDER BY created_at ASC LIMIT $limit OFFSET $offset");
 ?>
 
 <!DOCTYPE html>

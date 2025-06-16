@@ -98,7 +98,7 @@ if ($stmt->execute($params)) {
     // Bersihkan session jika perlu
     unset($_SESSION['data_diri'], $_SESSION['data_ortu']);
     
-    echo "<script>alert('Pendaftaran berhasil!'); window.location='../index.php';</script>";
+    header("Location: ../successpagesiswa.php");
 } else {
     $errorInfo = $stmt->errorInfo();
     echo "<script>alert('Terjadi kesalahan: " . htmlspecialchars($errorInfo[2]) . "');</script>";

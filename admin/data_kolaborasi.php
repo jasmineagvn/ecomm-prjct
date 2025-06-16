@@ -13,7 +13,7 @@ if ($cari !== '') {
                  OR email LIKE '%$cari%' 
                  OR no_hp LIKE '%$cari%'";
 } else {
-    $query = "SELECT * FROM kolaborasi ORDER BY created_at DESC";
+    $query = "SELECT * FROM kolaborasi ORDER BY created_at ASC";
 }
 $result = $koneksi->query($query);
 ?>

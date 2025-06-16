@@ -35,7 +35,7 @@ mysqli_stmt_bind_param($stmt, 'ssssssssssssss',
 );
 
 if (mysqli_stmt_execute($stmt)) {
-    echo "<script>alert('Pendaftaran relawan berhasil!'); window.location='../index.php';</script>";
+    header("Location: ../successpagerelawan.php");
 } else {
     echo "<script>alert('Terjadi kesalahan: " . mysqli_error($conn) . "');</script>";
 }

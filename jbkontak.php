@@ -50,7 +50,7 @@
                 <p class="text-gray-600 text-sm mb-6">
                     Silahkan isi formulir dibawah ini, dan kami akan segera menghubungi Anda
                 </p>
-                <form action="send-message.php" method="POST" class="space-y-4">
+                <form id="whatsappForm" class="space-y-4">
                     <input 
                         type="text" 
                         name="name" 
@@ -102,7 +102,25 @@
         ></iframe>
       </div>
     </section>
+    <script>
+    document.getElementById("whatsappForm").addEventListener("submit", function(e) {
+        e.preventDefault();
 
+        const name = document.querySelector('input[name="name"]').value;
+        const email = document.querySelector('input[name="email"]').value;
+        const phone = document.querySelector('input[name="phone"]').value;
+        const message = document.querySelector('textarea[name="message"]').value;
+
+        const formattedMessage = `Halo Admin, saya ingin menghubungi Anda.%0A%0A*Nama:* ${name}%0A*Email:* ${email}%0A*No HP:* ${phone}%0A*Pesan:* ${message}`;
+        
+        const waNumber = "6281216925113"; // Tanpa "+" ganti 0 jadi 62
+
+        window.open(`https://wa.me/${waNumber}?text=${formattedMessage}`, '_blank');
+
+         // Setelah itu, reset form
+        document.getElementById("whatsappForm").reset();
+    });
+    </script>
 </main>
 
 <?php include 'components/footer.php' ?>

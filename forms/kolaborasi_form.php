@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -209,5 +210,23 @@
             });
         });
     </script>
+
+    <!-- Tambahkan jQuery & Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <?php if (isset($_SESSION['success_message'])): ?>
+    <script>
+        $(document).ready(function () {
+            toastr.success("<?= $_SESSION['success_message']; ?>", "Isi Form Berhasil!", {
+                positionClass: "toast-top-right",
+                timeOut: 3000,
+                closeButton: true,
+                progressBar: true
+            });
+        });
+    </script>
+    <?php unset($_SESSION['success_message']); endif; ?>
 </body>
 </html>

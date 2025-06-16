@@ -10,7 +10,7 @@ $db = $database->getConnection();
 
 // Ambil data galeri
 try {
-    $stmt = $db->prepare("SELECT * FROM galeri ORDER BY created_at DESC");
+    $stmt = $db->prepare("SELECT * FROM galeri ORDER BY created_at ASC");
     $stmt->execute();
     $galeriList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {

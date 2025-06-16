@@ -24,7 +24,7 @@
         </p>
 
         <a
-          href="index.php"
+          href="../index.php"
           class="absolute right-8 lg:right-24 flex items-center gap-2 lg:mt-0 mt-8 bg-orange-400 text-white px-6 py-2 rounded-full hover:bg-orange-500"
         >
           <img src="../assets/images/arrowleft.png" alt="Kembali" class="h-5 w-5" />
