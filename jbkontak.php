@@ -113,7 +113,7 @@
 
         const formattedMessage = `Halo Admin, saya ingin menghubungi Anda.%0A%0A*Nama:* ${name}%0A*Email:* ${email}%0A*No HP:* ${phone}%0A*Pesan:* ${message}`;
         
-        const waNumber = "6281216925113"; // Tanpa "+" ganti 0 jadi 62
+        const waNumber = "62817170422"; // Tanpa "+" ganti 0 jadi 62
 
         window.open(`https://wa.me/${waNumber}?text=${formattedMessage}`, '_blank');
 

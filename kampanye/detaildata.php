@@ -2,7 +2,7 @@
 $campaigns = [
     [
         "id" => "1",
-        "image" => "/icons/kampanyedetail/pendidikan.png",
+        "image" => "../assets/images/kampanyedetail/pendidikan.png",
         "tag" => "Donasi Kampanye Tetap",
         "title" => "Pendidikan untuk Anak Hebat Sekolah Janji Baik",
         "collected" => 3000000,

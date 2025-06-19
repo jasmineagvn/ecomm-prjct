@@ -41,7 +41,7 @@
               Terkumpul <strong>Rp<?= number_format($item['collected'], 0, ',', '.') ?></strong> 
               dari <strong>Rp<?= number_format($item['target'], 0, ',', '.') ?></strong>
             </div>
-            <a href="/detailkampanye.php?id=<?= $item['id'] ?>" 
+            <a href="detailkampanye.php?id=<?= $item['id'] ?>" 
               class="bg-orange-400 hover:bg-orange-500 text-white text-sm lg:text-base px-6 py-2 rounded-full w-[240px] h-[39px] inline-block text-center mt-8">
               Lihat Detail Kampanye
             </a>

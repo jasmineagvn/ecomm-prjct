@@ -164,6 +164,15 @@ opacity-0 invisible translate-y-2 transition-all duration-200"
         </div>
 
         <a href="/janji-baik/jbkontak.php" class="text-gray-500 hover:text-[#5EC2C2] transition-colors duration-200">Kontak Kami</a>
+
+        <?php
+          $current_page = basename($_SERVER['PHP_SELF']);
+          if ($current_page == 'index.php'):
+          ?>
+            <a href="/janji-baik/admin/dashboard.php" class="flex items-center gap-2 text-white bg-[#5EC2C2] hover:bg-yellow-400 px-4 py-2 rounded-[12px] transition-colors duration-200">
+              <img src="./assets/images/user-shield-solid.svg" alt="Admin Icon" class="w-5 h-5">Admin
+            </a>
+        <?php endif; ?>
       </nav>
     </div>
   </header>
