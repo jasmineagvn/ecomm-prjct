@@ -1,137 +1,127 @@
- <footer class="md:p-[92px] px-5 py-22 bg-[#01B4BB] relative h-full w-full mt-20">
-      <img
-        src="/janji-baik/assets/images/Titik-titik.png"
-        alt=""
-        class="absolute w-[150px] top-0"
+<footer class="bg-[#543A14] mt-20">
+
+  <!-- Main Footer -->
+  <div class="max-w-7xl mx-auto px-16 py-14 flex flex-col md:flex-row justify-between gap-12">
+
+    <!-- Left Section -->
+    <div class="flex flex-col gap-6">
+
+      <!-- Logo -->
+      <img 
+        src="./assets/logo-white.svg" 
+        alt="Domio Logo" 
+        class="w-28"
       />
-      <div class="md:relative flex flex-wrap md:flex-row gap-9 md:gap-0 justify-between items-center">
-        <div class="flex flex-col gap-6">
-          <img src="/janji-baik/assets/images/logo-footer.png" alt="" class="w-24" />
-          <h1 class="text-base text-white">Tempat Berkesempatan Baik</h1>
-          <div class="flex gap-5">
-            <a
-              href="https://mail.google.com/mail/?view=cm&fs=1&to=janji.baikmedia@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/janji-baik/assets/images/email.png"
-                alt="emailfooter"
-                class="transition-transform duration-300 w-9 hover:scale-110 hover:opacity-80"
-              />
+
+      <!-- Description -->
+      <p class="text-white text-base leading-relaxed max-w-md">
+        Crafting timeless comfort for every corner of your home. Your journey
+        to a modern and stylish living starts here.
+      </p>
+
+    </div>
+
+    <!-- Right Section -->
+    <div class="flex flex-col sm:flex-row gap-16">
+
+      <!-- Shop By Room -->
+      <div class="flex flex-col gap-5">
+        <h2 class="text-white font-semibold text-lg">
+          Shop By Room
+        </h2>
+
+        <ul class="flex flex-col gap-3 text-white">
+          <li>
+            <a href="#" class="hover:underline">
+              Living Room
             </a>
-            <a
-              href="https://www.instagram.com/janjibaik.id/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/janji-baik/assets/images/ig.png"
-                alt="igfooter"
-                class="transition-transform duration-300 w-9 hover:scale-110 hover:opacity-80"
-              />
+          </li>
+
+          <li>
+            <a href="#" class="hover:underline">
+              Bedroom
             </a>
-            <a
-              href="https://www.linkedin.com/company/janji-baik/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/janji-baik/assets/images/linkin.png"
-                alt="linkedinfooter"
-                class="transition-transform duration-300 w-9 hover:scale-110 hover:opacity-80"
-              />
+          </li>
+
+          <li>
+            <a href="#" class="hover:underline">
+              Workspace
             </a>
-            <a
-              href="https://www.youtube.com/@janjibaik"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/janji-baik/assets/images/yt.png"
-                alt="ytfooter"
-                class="transition-transform duration-300 w-9 hover:scale-110 hover:opacity-80"
-              />
+          </li>
+
+          <li>
+            <a href="#" class="hover:underline">
+              Dining Room
             </a>
-            <a
-              href="https://wa.me/62817170422"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/janji-baik/assets/images/wa.png"
-                alt="wafooter"
-                class="transition-transform duration-300 w-9 hover:scale-110 hover:opacity-80"
-              />
-            </a>
-          </div>
-          <p class="text-sm text-white">Copyright ©2025 Janji Baik</p>
-        </div>
-        <div class="flex flex-col lg:flex-row lg:gap-20 gap-10 w-full md:w-[340px]">
-          <div class="flex flex-col gap-5">
-            <h1 class="text-base text-white font-semibold">Informasi</h1>
-            <ul class="flex flex-col gap-3.5">
-              <li>
-                <a
-                  href="/tentangkami"
-                  class="text-base text-white whitespace-nowrap hover:underline underline-offset-4 transition-all duration-300"
-                >
-                  Tentang Kami
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/daftar"
-                  class="text-base text-white hover:underline underline-offset-4 transition-all duration-300"
-                >
-                  Daftar
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="text-base text-white hover:underline underline-offset-4 transition-all duration-300"
-                >
-                  Program
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="text-base text-white hover:underline underline-offset-4 transition-all duration-300"
-                >
-                  Donasi
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="flex flex-col gap-5">
-            <h1 class="text-base text-white font-semibold">Hubungi Kami</h1>
-            <ul class="flex flex-col gap-3.5">
-              <li>
-                <a href="#" class="text-base text-white">
-                  janji.baikmedia@gmail.com
-                </a>
-              </li>
-              <li>
-                <a href="#" class="text-base text-white">
-                  0831 - 3828 - 6129
-                </a>
-              </li>
-              <li>
-                <a href="#" class="text-base text-white">
-                  Alesha House, Vanya Park Tangerang Regency, Banten
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
-      <img
-        src="/janji-baik/assets/images/Meliuk-liuk.png"
-        alt=""
-        class="absolute w-[433px] h-[233px] bottom-0 right-0"
-      />
-    </footer>
-</body>
-</html>
+
+      <!-- Follow Us -->
+      <div class="flex flex-col gap-5">
+        <h2 class="text-white font-semibold text-lg">
+          Follow Us
+        </h2>
+
+        <ul class="flex flex-col gap-3">
+
+          <li>
+            <a href="#" class="flex items-center gap-3 text-white hover:underline">
+              <img 
+                src="./assets/icons/instagram.svg" 
+                alt="Instagram" 
+                class="w-5 h-5"
+              />
+              Instagram
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="flex items-center gap-3 text-white hover:underline">
+              <img 
+                src="./assets/icons/whatsapp.svg" 
+                alt="WhatsApp" 
+                class="w-5 h-5"
+              />
+              WhatsApp
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="flex items-center gap-3 text-white hover:underline">
+              <img 
+                src="./assets/icons/twitter.svg" 
+                alt="Twitter" 
+                class="w-5 h-5"
+              />
+              Twitter
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="flex items-center gap-3 text-white hover:underline">
+              <img 
+                src="./assets/icons/linkedin.svg" 
+                alt="LinkedIn" 
+                class="w-5 h-5"
+              />
+              LinkedIn
+            </a>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Copyright -->
+  <div class="border-t border-white/40">
+    <div class="max-w-7xl mx-auto px-16 py-6">
+      <p class="text-white text-sm">
+        ©2026 Domio Furniture. All rights reserved.
+      </p>
+    </div>
+  </div>
+
+</footer>

@@ -2,401 +2,365 @@
 
 <main class="">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.umd.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const options = {
-        duration: 2.5
-      };
-
-      const anak = new countUp.CountUp('count-anak', 573, options);
-      const mitra = new countUp.CountUp('count-mitra', 141, options);
-      const kota = new countUp.CountUp('count-kota', 180, options);
-
-      // Mulai animasi hanya jika target ada
-      if (!anak.error) anak.start();
-      if (!mitra.error) mitra.start();
-      if (!kota.error) kota.start();
-    });
-  </script>
 
   <!-- Start : Hero -->
     <div class="hero relative">
-      <img src="assets/images/hero-main.png" alt="" class="">
-      <div class="absolute inset-0 px-6 md:px-0 flex flex-col gap-6 items-center mx-auto justify-center w-full md:w-[827px] text-white text-center">
+      <img src="assets/images/background/bg-homee.svg" alt="" class="">
+      <!-- Content -->
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6">
 
-    <!-- Judul -->
-    <h1 class="text-4xl md:text-[50px] font-bold leading-tight tracking-[-0.7px]">
-      Sekolah Inovatif Untuk Masa Depan Tanpa Hambatan
-    </h1>
+        <!-- Small Text -->
+        <p class="text-sm md:text-base font-normal mb-2">
+          Domio Exclusive
+        </p>
 
-    <!-- Paragraf -->
-    <p class="text-sm md:text-base leading-relaxed w-full md:w-[700px]">
-      Kami percaya bahwa setiap anak memiliki hak untuk mendapatkan akses pendidikan yang berkualitas dan memiliki potensi besar untuk sukses. Sekolah Teknologi Janji Baik hadir untuk mewujudkan impian tanpa hambatan biaya.
-    </p>
-        <div class="flex justify-center mt-16 gap-6">
-          <a href="about.php" class="bg-[#EC901D] hover:bg-orange-600 text-sm md:text-base text-white px-8 md:px-[60px] py-4 rounded-full">Pelajari lebih lanjut</a>
-          <a href="jbkontak.php" class="bg-[#EC901D] hover:bg-orange-600 text-sm md:text-base text-white px-8 md:px-[77px] py-4 rounded-full">Hubungi Kami</a>
-        </div>  
+        <!-- Main Heading -->
+        <h1 class="text-5xl md:text-[72px] font-bold leading-tight">
+          The Art of Living
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base md:text-lg mt-3 mb-8">
+          Elevating your home with thoughtful artistry.
+        </p>
+
+        <!-- Button -->
+        <a 
+          href="shop.php"
+          class="bg-[#FFF0DC] text-[#543A14] px-10 py-3 rounded-full text-base font-medium hover:bg-[#f5dfbc] transition"
+        >
+          Explore Now
+        </a>
       </div>
     </div>
     <!-- End : Start -->
 
-    <!-- Start: Info Stats -->
-<div class="absolute top-[92%] left-1/2 transform -translate-x-1/2 
-            bg-[#01B4BB] py-6 px-12 rounded-3xl w-[60%] max-w-5xl shadow-lg z-10">
-  <div class="flex flex-col md:flex-row justify-between items-center text-white w-full 
-              divide-y md:divide-y-0 md:divide-x divide-white">
+    <!-- Start : Our Story -->
+  <section class="max-w-6xl mx-auto px-4 lg:px-0 py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 bg-white gap-10 items-center">
 
-    <!-- Anak Penerima Manfaat -->
-    <div class="flex flex-col items-center gap-2 w-full md:w-1/3 px-4">
-      <h1 class="text-[50px] font-semibold text-white"><span id="count-anak">0</span>+</h1>
-      <p class="text-sm text-white/70 text-center">Anak Penerima Manfaat</p>
-    </div>
+      <!-- Left Image -->
+      <div>
+        <img 
+          src="/ecomm-prjct/assets/images/home/our-story.svg" 
+          alt="Our Story"
+          class="w-full h-[335px] object-cover rounded-md"
+        >
+      </div>
 
-    <!-- Kolaborasi Mitra -->
-    <div class="flex flex-col items-center gap-2 w-full md:w-1/3 px-4">
-      <h1 class="text-[50px] font-semibold text-white"><span id="count-mitra">0</span>+</h1>
-      <p class="text-sm text-white/70 text-center">Kolaborasi Mitra yang Terjalin</p>
-    </div>
+      <!-- Right Content -->
+      <div class="flex flex-col justify-between h-full">
 
-    <!-- Kota di seluruh Indonesia -->
-    <div class="flex flex-col items-center gap-2 w-full md:w-1/3 px-4">
-      <h1 class="text-[50px] font-semibold text-white"><span id="count-kota">0</span>+</h1>
-      <p class="text-sm text-white/70 text-center">Kota di seluruh Indonesia</p>
-    </div>
+        <div>
+          <h2 class="text-4xl font-semibold text-[#1E1E1E] mb-5">
+            Our Story
+          </h2>
 
-  </div>
-</div>
-<!-- End: Info Stats -->
-
-
-
-
-
-
-    <!-- Start : Tentang Sekolah -->
-     <div class="max-w-6xl mx-auto mt-20 lg:mt-[150px]">
-      <div class="flex justify-between items-center px-4 md:px-0">
-        <div class="flex flex-col gap-y-8 w-full md:w-[50%]">
-          <header class="flex flex-col gap-y-2 w-full md:w-[550px]">
-            <p class="text-teal-500 font-bold tracking-[-0.7px]">
-              Tentang Sekolah Janji Baik
-            </p>
-            <h1 class="text-black dark:text-white text-3xl lg:text-4xl font-semibold  tracking-[-0.7px] leading-tight">
-              Pendidikan untuk Semua, Masa Depan yang Lebih Baik
-            </h1>
-          </header>
-
-          <p class="text-[#72717B] text-sm lg:text-base dark:text-gray-400 w-full md:w-[496px] leading-relaxed tracking-[-0.7px]">
-            Sekolah Janji Baik adalah sekolah non-profit yang menyediakan
-            pendidikan gratis bagi anak-anak kurang mampu di Indonesia. Berdiri
-            sejak 2020, kami hadir untuk menjembatani kesenjangan pendidikan dan
-            memberikan kesempatan belajar yang layak bagi setiap anak.
+          <p class="text-[#5C5C5C] leading-relaxed text-base mb-6 max-w-xl">
+            Founded in 2019, Domio has been dedicated to bringing high-quality,
+            sustainable furniture to every home. We believe that a well-designed
+            space can inspire better living and lasting memories.
           </p>
 
-          <div class="flex flex-col gap-y-8">
-            <h1 class="text-black dark:text-white text-3xl lg:text-4xl font-medium">Misi Kami</h1>
-
-            <div class="flex flex-col gap-y-4">
-              <div class="flex gap-x-4 items-center">
-                <img src="assets/images/check.svg" alt="icon" class="w-4 h-4 lg:w-5 lg:h-5" />
-                <p class="text-[#72717B] text-sm lg:text-base dark:text-gray-400 leading-relaxed tracking-[-0.7px]">
-                 Menjangkau anak-anak putus sekolah dari keluarga Prasejahtera untuk mendapatkan hak Pendidikan melalui jalur Pendidikan nonformal (Pendidikan Kesetaraan).
-                </p>
-            </div>
-              <div class="flex gap-x-4 items-center">
-                <img src="assets/images/check.svg" alt="icon" class="w-4 h-4 lg:w-5 lg:h-5" />
-                <p class="text-[#72717B] text-sm lg:text-base dark:text-gray-400 leading-relaxed tracking-[-0.7px]">
-                 Menjangkau anak-anak putus sekolah dari keluarga Prasejahtera untuk mendapatkan hak Pendidikan melalui jalur Pendidikan nonformal (Pendidikan Kesetaraan).
-                </p>
-            </div>
-              <div class="flex gap-x-4 items-center">
-                <img src="assets/images/check.svg" alt="icon" class="w-4 h-4 lg:w-5 lg:h-5" />
-                <p class="text-[#72717B] text-sm lg:text-base dark:text-gray-400 leading-relaxed tracking-[-0.7px]">
-                 Menjangkau anak-anak putus sekolah dari keluarga Prasejahtera untuk mendapatkan hak Pendidikan melalui jalur Pendidikan nonformal (Pendidikan Kesetaraan).
-                </p>
-            </div>
-            </div>
-          </div>
-
-          <a href="about.php" class="lg:w-[510px] w-full bg-[#EC901D] py-5 rounded-full text-center text-white">Pelajari lebih lanjut</a>
+          <a 
+            href="about.php"
+            class="text-[#D89A47] font-bold font-medium hover:underline"
+          >
+            Read More
+          </a>
         </div>
 
-        <img src="assets/images/voluenter.png" alt="" class="w-[500px] hidden md:flex" />
-      </div>
-    </div>
-    <!-- End : Tentang Sekolah -->
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-12 mt-12">
 
-    <!-- Start : Card -->
-    <div class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6 mt-[90px] lg:mt-[150px]">
-      <div class="rounded-xl p-6 dark:bg-[#3C3F41] shadow-2xl gap-5 flex flex-col items-center hover:bg-[rgba(69,179,157,0.2)]">
-        <img class="w-20" src="assets/images/siswa.png" alt="">
-        <h2 class="text-xl dark:text-white font-semibold mb-2">Menjadi Siswa</h2>
-        <p class="text-gray-600 dark:text-gray-300 text-sm mb-6 flex-1 text-center">
-         Dapatkan pendidikan berkualitas untuk masa depan yang lebih cerah.Bergabunglah bersama kami dan nikmati fasilitas belajar lengkap,program pengembangan siswa, serta lingkungan belajar yang mendukung
-        </p>
-        <a href="forms/syarat_siswa.php" class="bg-[#EC901D] text-white px-6 py-2 rounded-full hover:bg-orange-600 transition cursor-pointer">
-          Daftar Sebagai Siswa
-        </a>
-      </div>
-      <div class="rounded-xl p-6 dark:bg-[#3C3F41] shadow-2xl gap-5 flex flex-col items-center hover:bg-[rgba(69,179,157,0.2)]">
-        <img class="w-20" src="assets/images/siswa.png" alt="">
-        <h2 class="text-xl dark:text-white font-semibold mb-2">Menjadi Relawan</h2>
-        <p class="text-gray-600 dark:text-gray-300 text-sm mb-6 flex-1 text-center">
-         Bergabunglah sebagai pengajar, mentor, atau tenaga relawan untuk membantu anak-anak belajar dan berkembang. Anda bisa berbagi ilmu, pengalaman, atau keterampilan dengan mereka.
-        </p>
-        <a href="forms/daftar_relawan.php" class="bg-[#EC901D] text-white px-6 py-2 rounded-full hover:bg-orange-600 transition cursor-pointer">
-          Daftar Menjadi Relawan
-        </a>
-      </div>
-      <div class="rounded-xl p-6 dark:bg-[#3C3F41] shadow-2xl gap-5 flex flex-col items-center hover:bg-[rgba(69,179,157,0.2)]">
-        <img class="w-20" src="assets/images/siswa.png" alt="">
-        <h2 class="text-xl dark:text-white font-semibold mb-2">Berdonasi</h2>
-        <p class="text-gray-600 dark:text-gray-300 text-sm mb-6 flex-1 text-center">
-         Dukung pendidikan anak-anak dengan memberikan donasi. Setiap kontribusi yang Anda berikan akan digunakan untuk biaya operasional sekolah, perlengkapan belajar, dan program pengembangan siswa.
-        </p>
-        <a  href="donasi/donasiumum.php" class="bg-[#EC901D] text-white px-6 py-2 rounded-full hover:bg-orange-600 transition cursor-pointer">
-          Ingin Berdonasi?
-        </a>
-      </div>
-      <div class="rounded-xl p-6 dark:bg-[#3C3F41] shadow-2xl gap-5 flex flex-col items-center hover:bg-[rgba(69,179,157,0.2)]">
-        <img class="w-20" src="assets/images/siswa.png" alt="">
-        <h2 class="text-xl dark:text-white font-semibold mb-2">Berkolaborasi</h2>
-        <p class="text-gray-600 dark:text-gray-300 text-sm mb-6 flex-1 text-center">
-         Kami membuka peluang kerja sama dengan komunitas, perusahaan, dan lembaga lainnya untuk menciptakan program pendidikan yang lebih berdampak. Mari bersama membangun masa depan yang lebih baik!
-        </p>
-        <a href="forms/kolaborasi_form.php" class="bg-[#EC901D] text-white px-6 py-2 rounded-full hover:bg-orange-600 transition cursor-pointer">
-          Mau Berkolaborasi?
-        </a>
-      </div>
-    </div>
-    <!-- End : Card -->
-
-    <!-- Start : Program -->
-      <?php
-  $programCard = [
-    [
-      "icon" => "/janji-baik/assets/images/education.png",
-      "title" => "Sekolah Gratis Berbasis Teknologi",
-      "description" => "Bagi anak-anak yang mengalami keterbatasan akses pendidikan formal, Sekolah Janji Baik menyediakan program pendidikan gratis jenjang setara SD, SMP, SMA melalui pendidikan non formal kesetaraan.",
-    ],
-    [
-      "icon" => "/janji-baik/assets/images/education.png",
-      "title" => "Lingkungan",
-      "description" => "Di era digital, keterampilan teknologi sangat penting. Program ini membekali siswa dengan pemahaman teknologi dasar, penggunaan internet yang produktif",
-    ],
-    [
-      "icon" => "/janji-baik/assets/images/education.png",
-      "title" => "Bimbingan & Kesehatan Mental",
-      "description" => "Kami menyediakan layanan bimbingan konseling untuk mendukung perkembangan akademik dan psikologis siswa",
-    ],
-    [
-      "icon" => "/janji-baik/assets/images/education.png",
-      "title" => "Kesejahteraan Sosial",
-      "description" => "Kami percaya bahwa pendidikan bukan hanya tanggung jawab sekolah, tetapi juga seluruh elemen masyarakat.",
-    ],
-  ];
-  ?>
-
-  <section class="flex flex-col md:flex-row md:justify-between gap-10 md:gap-0 items-center mt-24 md:mt-44">
-    <!-- Card Container -->
-    <div class="md:relative w-full order-2 md:order-1 h-screen md:h-full mb-28 md:mb-0">
-      <img src="/janji-baik/assets/images/bg-2.png" alt="Background" class="w-[620px] hidden md:flex" />
-
-      <div class="md:absolute flex flex-wrap justify-center w-full lg:w-[800px] lg:h-[500px] top-10 md:-top-10 gap-7">
-        <?php foreach ($programCard as $program): ?>
-          <div class="bg-white shadow-lg flex flex-col rounded-xl mx-5 md:mx-0 px-4 py-6 lg:py-0 justify-center gap-2 lg:w-[341px] lg:h-[230px] w-full h-full">
-            <img src="<?= $program['icon'] ?>" alt="Icon" width="40" height="40" />
-            <h3 class="text-xl text-black font-bold mb-2"><?= htmlspecialchars($program['title']) ?></h3>
-            <p class="text-gray-600 text-sm"><?= htmlspecialchars($program['description']) ?></p>
+          <div>
+            <h3 id="count1" class="text-5xl font-bold text-[#1E1E1E]">
+              0
+            </h3>
+            <p class="text-[#543A14] mt-2 leading-snug">
+              Curated <br> Products
+            </p>
           </div>
-        <?php endforeach; ?>
-      </div>
-    </div>
 
-    <!-- Text Section -->
-    <div class="flex flex-col gap-5 w-full px-4 md:w-[550px] mr-0 md:mr-16 order-1 md:order-2">
-      <span class="text-sm text-[#01B4BB] font-semibold">Program Unggulan</span>
-      <h1 class="text-[24px] font-semibold tracking-[-0.7px] leading-snug">
-        Membuka Akses, Meningkatkan Kesempatan, Mewujudkan Janji Baik
-      </h1>
-      <p class="text-sm text-[#72717B] dark:text-gray-300">
-        Janji Baik lahir dari kepedulian dan keyakinan bahwa setiap anak
-        berhak mendapatkan pendidikan yang layak. Kami hadir untuk memberikan
-        akses belajar bagi anak-anak yang kurang beruntung, membuka peluang
-        yang lebih luas, dan memastikan mereka memiliki masa depan yang lebih
-        baik.
-      </p>
-      <a href="jbprogram.php" class="inline-block text-center px-6 py-3 bg-[#EC901D] text-white font-medium rounded-full hover:bg-orange-600 transition">
-        Lihat Program di Janji Baik
-      </a>
+          <div>
+            <h3 id="count2" class="text-5xl font-bold text-[#1E1E1E]">
+              0
+            </h3>
+            <p class="text-[#543A14] mt-2 leading-snug">
+              Happy <br> Homes
+            </p>
+          </div>
+
+          <div>
+            <h3 id="count3" class="text-5xl font-bold text-[#1E1E1E]">
+              0
+            </h3>
+            <p class="text-[#543A14] mt-2 leading-snug">
+              Years <br> of Craft
+            </p>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   </section>
-  <!-- End : Program -->
+  <!-- End : Our Story -->
 
-  <!-- Start : Testi -->
-      <?php
-  $testi = [
-    [
-      "nama" => "Pandu Pangestu",
-      "role" => "Relawan Janji Baik",
-      "desc" => "“Bagiku Janji Baik kini menjadi satu-satunya tempat untuk mempertanggungjawabkan keilmuan dan tempat memanen banyak kebaikan yang InsyaAllah kelak akan menjadi pemberat amal di akhirat💙”",
-      "profile" => "/janji-baik/assets/images/testi1.png",
-    ],
-    [
-      "nama" => "Syaiful Bahri Ibnu Abdillah",
-      "role" => "Relawan Janji Baik",
-      "desc" => "“Saya merasa sangat beruntung bisa menjadi bagian dari keluarga Janji Baik. Selain mendapatkan pengalaman berharga, ini juga menjadi bagian dari proses belajar saya untuk menjadi pribadi yang dapat bermanfaat bagi orang lain. Tidak ada hal lain yang saya harapkan selain melihat senyum bahagia para adik-adik siswa Janji Baik. Sukses terus untuk Janji Baik💙💙”",
-      "profile" => "/janji-baik/assets/images/testi2.png",
-    ],
-    [
-      "nama" => "Putri Amalia Soleha",
-      "role" => "Relawan Janji Baik",
-      "desc" => "“Pertama kali kenal Janji Baik, aku langsung senang karena merasa ngajar di sini punya rasa yang beda. Aku bisa menyalurkan hobi belajar sejarah, meski aku anak MIPA. Di sini aku nggak cuma mengajar, tapi juga ikut belajar berkat anak-anak yang penuh semangat. Pesanku, semoga kalian makin disiplin belajarnya, dan semoga kebaikan selalu menyertai kita semua. Aamiin 🫶”",
-      "profile" => "/janji-baik/assets/images/testi3.png",
-    ],
-    [
-      "nama" => "Alan Nuary",
-      "role" => "Siswa Janji Baik",
-      "desc" => "“Cerita selama di Janji Baik seruu banyak banget kalau ikut acara offline nya banyak aktifitas kaya games, tanya jawab, bahkan tour dll, sampe ada satu hari pulang sampe malem wkwkw dan kesan nya si kagum sama kakak-kakak nya support banget kalau ada pelajaran yang sulit dimengerti kakak nya fast respon banget, pokok nya kalian keren sekali. Terima kasih Janji Baik💙”",
-      "profile" => "/janji-baik/assets/images/testi4.png",
-    ],
-    [
-      "nama" => "Fergie Virginia",
-      "role" => "Relawan Janji Baik",
-      "desc" => "“Menjadi bagian dari sekolah Janji Baik adalah pengalaman yang sangat berarti bagi saya. Senangnya melihat anak-anak yang bisa sekolah, di tengah keterbatasan mereka. Janji Baik bukan hanya menjadi tempat belajar bagi mereka, tetapi juga tempat saya belajar tentang arti hidup, harapan, dan ketulusan. Janji Baik, tempat berkesempatan baik😊👌”",
-      "profile" => "/janji-baik/assets/images/testi5.png",
-    ],
-    [
-      "nama" => "Siti Aisyah",
-      "role" => "Siswa Janji Baik",
-      "desc" => "“Aku suka sekolah di Janji Baik. Kalau aku nggak sekolah di Janji Baik, gabakal bisa punya temen-temen baik kayak mereka, terus kakak-kakak yang baik yang selalu ngajarin kita yang masih belum ngerti banyak.”",
-      "profile" => "/janji-baik/assets/images/testi6.png",
-    ],
-    [
-      "nama" => "Sawinah",
-      "role" => "Siswa Janji Baik",
-      "desc" => "“Belajar di Janji Baik benar-benar beda—lebih santai dan fleksibel karena online, tapi tetap seru dengan kegiatan bulanan. Favoritku adalah Kelas Kreasi, karena bisa ketemu langsung, main game, dan dengerin sharing dari kampus. Aku jadi lebih semangat belajar dan punya gambaran jelas soal masa depan. Terima kasih Janji Baik, sudah jadi rumah belajar yang menyenangkan dan bermakna! 💙✨”",
-      "profile" => "/janji-baik/assets/images/testi7.png",
-    ],
-    [
-      "nama" => "Patricia Putri Kissya Rintyaningtyas",
-      "role" => "Relawan Janji Baik",
-      "desc" => "“Menjadi tutor kelas 1 di Sekolah Janji Baik adalah pengalaman luar biasa. Melihat anak-anak tumbuh dalam akademik, kemandirian, dan percaya diri sangat membahagiakan. Kurikulumnya menyenangkan dan bermakna, ditambah kegiatan seperti karyawisata dan nonton bersama yang membuat suasana belajar jadi positif. Saya bangga bisa jadi bagian dari awal perjalanan mereka.”",
-      "profile" => "/janji-baik/assets/images/testi8.png",
-    ],
-    [
-      "nama" => "Detta Pristianti",
-      "role" => "Relawan Janji Baik",
-      "desc" => "“Seneng banget selama di Janji Baik, temen-temennya sangat helpful dan programnya jelas memberikan manfaat ke adik-adik. semoga kedepannya semakin berkembang menjadi lebih baik yaaaaa luv🥰”",
-      "profile" => "/janji-baik/assets/images/testi9.png",
-    ],
-  ];
-  ?>
 
-  <div class="mt-[190px] lg:mt-30">
-    <div class="text-center mb-12 px-6">
-      <p class="text-[#01B4BB] text-sm font-semibold">Testimoni & Kisah Inspiratif</p>
-      <h2 class="text-2xl lg:text-3xl font-semibold mt-2 mb-4">
-        Cerita Perubahan dari Mereka yang Telah Terbantu
+  <!-- CountUp JS -->
+  <script>
+    window.addEventListener("load", () => {
+      const count1 = new countUp.CountUp('count1', 500, {
+        suffix: '+',
+        duration: 2
+      });
+
+      const count2 = new countUp.CountUp('count2', 15, {
+        suffix: 'k',
+        duration: 2
+      });
+
+      const count3 = new countUp.CountUp('count3', 7, {
+        duration: 2
+      });
+
+      count1.start();
+      count2.start();
+      count3.start();
+    });
+  </script>
+
+  <!-- Start : Best Seller Product -->
+  <section class="w-full bg-[#FFF8EE] mt-10 lg:mt-16 py-14">
+
+  <!-- Container -->
+  <div class="max-w-7xl mx-auto px-8 md:px-12">
+
+    <!-- Heading -->
+    <div class="mb-10">
+      <h2 class="text-3xl md:text-[42px] font-semibold text-[#1E1E1E] mb-2">
+        Our Best Seller Product
       </h2>
-      <p class="text-gray-600 text-sm lg:text-base dark:text-gray-400 max-w-2xl mx-auto">
-        Setiap anak yang belajar di Sekolah Janji Baik memiliki cerita
-        perjuangan yang unik. Dari keterbatasan hingga menemukan harapan baru,
-        mereka membuktikan bahwa pendidikan bisa mengubah masa depan.
+
+      <p class="text-[#543A14] text-sm md:text-base font-medium mt-4">
+        Discover the most loved pieces that define modern comfort and timeless style in every home.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 px-4 py-6 bg-gray-100">
-      <?php foreach ($testi as $item): ?>
-        <div class="flex gap-4 bg-white w-[450px] px-6 py-7 rounded-3xl">
-          <img src="<?= htmlspecialchars($item['profile']) ?>" alt="<?= htmlspecialchars($item['nama']) ?>" class="w-14 h-14 rounded-full object-cover" />
-          <div class="flex flex-col gap-4">
-            <h1 class="text-2xl font-bold"><?= htmlspecialchars($item['nama']) ?></h1>
-            <span class="text-sm text-gray-600"><?= htmlspecialchars($item['role']) ?></span>
-            <p class="text-gray-600 text-[13px]"><?= htmlspecialchars($item['desc']) ?></p>
-          </div>
+    <!-- Product Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+      <!-- Item 1 -->
+      <div class="text-center group">
+        <div class="overflow-hidden rounded-2xl bg-white">
+          <img 
+            src="assets/images/home/best-product-1.svg"
+            alt="Oda Ceramic Vase"
+            class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300"
+          >
         </div>
-      <?php endforeach; ?>
+
+        <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
+          Oda Ceramic Vase
+        </h3>
+
+        <p class="text-[#555] mt-1">
+          $24.95
+        </p>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="text-center group">
+        <div class="overflow-hidden rounded-2xl bg-white">
+          <img 
+            src="assets/images/home/best-product-2.svg"
+            alt="Lune Linen Pillow"
+            class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300"
+          >
+        </div>
+
+        <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
+          Lune Linen Pillow
+        </h3>
+
+        <p class="text-[#555] mt-1">
+          $19.99
+        </p>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="text-center group">
+        <div class="overflow-hidden rounded-2xl bg-white">
+          <img 
+            src="assets/images/home/best-product-3.svg"
+            alt="Sora Table Lamp"
+            class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300"
+          >
+        </div>
+
+        <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
+          Sora Table Lamp
+        </h3>
+
+        <p class="text-[#555] mt-1">
+          $45.00
+        </p>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="text-center group">
+        <div class="overflow-hidden rounded-2xl bg-white">
+          <img 
+            src="assets/images/home/best-product-4.svg"
+            alt="Teak Serving Tray"
+            class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300"
+          >
+        </div>
+
+        <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
+          Teak Serving Tray
+        </h3>
+
+        <p class="text-[#555] mt-1">
+          $29.99
+        </p>
+      </div>
+
     </div>
-  </div>
-  <!-- End : Testi -->
 
-  <!-- Start : Partner -->
-        <?php
-    $partners = [
-      "/janji-baik/assets/images/pertamina.png" => "Pertamina",
-      "/janji-baik/assets/images/unilever.png" => "Unilever",
-      "/janji-baik/assets/images/kadin.png" => "KADIN",
-      "/janji-baik/assets/images/kitabisa.png" => "Kitabisa",
-      "/janji-baik/assets/images/kakseto.png" => "Kaseto",
-      "/janji-baik/assets/images/bakrie.png" => "Bakrie",
-      "/janji-baik/assets/images/yayasandunia.png" => "Yayasandunia",
-      "/janji-baik/assets/images/fim.png" => "FIM",
-      "/janji-baik/assets/images/ui.png" => "UI",
-      "/janji-baik/assets/images/binus.png" => "Binus",
-      "/janji-baik/assets/images/untirta.png" => "Untirta",
-      "/janji-baik/assets/images/unpad.png" => "Unpad",
-      "/janji-baik/assets/images/unpam.png" => "Unpam"
-    ];
-    ?>
-
-    <section class="max-w-6xl mx-auto text-center px-4 lg:px-0 mt-[90px] lg:mt-[150px]">
-  <p class="text-sm text-[#01B4BB] font-medium mb-1">Mitra Kerja Janji Baik</p>
-  <h2 class="text-2xl md:text-3xl font-semibold mb-4">Partner Kolaborasi Janji Baik</h2>
-  <p class="max-w-2xl mx-auto text-[#72717B] text-sm md:text-base mb-10">
-    Kami bangga bekerja sama dengan berbagai mitra yang mendukung visi
-    Sekolah Janji Baik. Melalui kolaborasi ini, kami bersama-sama
-    menciptakan peluang pendidikan yang lebih baik, menyediakan fasilitas
-    yang memadai, serta membantu pengembangan karakter dan keterampilan
-    siswa.
-  </p>
-
-  <div class="flex flex-col gap-24 mt-24 mb-32">
-    <!-- Baris Pertama -->
-    <div class="flex flex-wrap justify-center gap-10">
-      <?php
-      $partners1 = ["Pertamina", "Unilever", "KADIN", "Kitabisa"];
-      foreach ($partners1 as $partner) {
-        echo '
-        <div class="w-[120px] h-[80px] bg-white rounded-xl transition duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center">
-          <img src="assets/images/' . $partner . '.png" alt="' . ucfirst($partner) . '" class="w-full h-full object-contain p-2" />
-        </div>';
-      }
-      ?>
-    </div>
-
-    <!-- Baris Kedua -->
-    <div class="flex flex-wrap justify-center gap-24">
-      <?php
-      $partners2 = ["Kakseto", "Bakrie", "Yayasandunia", "FIM", "UI"];
-      foreach ($partners2 as $partner) {
-        echo '
-        <div class="w-[120px] h-[80px] bg-white rounded-xl transition duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center">
-          <img src="assets/images/' . $partner . '.png" alt="' . strtoupper($partner) . '" class="w-full h-full object-contain p-2" />
-        </div>';
-      }
-      ?>
-    </div>
-
-    <!-- Baris Ketiga -->
-    <div class="flex flex-wrap justify-center gap-24">
-      <?php
-      $partners3 = ["Binus", "Untirta", "Unpad", "Unpam"];
-      foreach ($partners3 as $partner) {
-        echo '
-        <div class="w-[120px] h-[80px] bg-white rounded-xl transition duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center">
-          <img src="assets/images/' . $partner . '.png" alt="' . strtoupper($partner) . '" class="w-full h-full object-contain p-2" />
-        </div>';
-      }
-      ?>
-    </div>
   </div>
 </section>
+  <!-- End : Best Seller Product -->
 
+    <?php
+$products = [
+  [
+    "name" => "Mika Armchair",
+    "price" => "$185.00",
+    "category" => "Living Room",
+    "image" => "assets/images/home/our-collect-1.svg",
+  ],
+  [
+    "name" => "Nami Side Table",
+    "price" => "$89.00",
+    "category" => "Bedroom",
+    "image" => "assets/images/home/our-collect-2.svg",
+  ],
+  [
+    "name" => "Kala Working Desk",
+    "price" => "$320.00",
+    "category" => "Workspace",
+    "image" => "assets/images/home/our-collect-3.svg",
+  ],
+  [
+    "name" => "Selo Dining Chair",
+    "price" => "$115.00",
+    "category" => "Dining",
+    "image" => "assets/images/home/our-collect-4.svg",
+  ],
+  [
+    "name" => "Rumi Wardrobe",
+    "price" => "$450.00",
+    "category" => "Bedroom",
+    "image" => "assets/images/home/our-collect-5.svg",
+  ],
+  [
+    "name" => "Hana Floor Lamp",
+    "price" => "$120.00",
+    "category" => "Living Room",
+    "image" => "assets/images/home/our-collect-6.svg",
+  ],
+];
+?>
 
+<!-- Start : Explore Collections -->
+<section class="max-w-6xl mx-auto mt-16 lg:mt-24 px-4">
 
-  <!-- End : Partner -->
+  <!-- Title -->
+  <div class="text-center">
+    <h2 class="text-3xl md:text-[42px] font-semibold text-[#1E1E1E]">
+      Explore Our Collections
+    </h2>
+  </div>
+
+  <!-- Category -->
+  <div class="flex flex-wrap justify-center gap-3 mt-6 mb-10">
+
+    <button class="px-7 py-2 rounded-full bg-black text-white text-sm">
+      All
+    </button>
+
+    <button class="px-6 py-2 rounded-full border border-black text-sm">
+      Living Room
+    </button>
+
+    <button class="px-6 py-2 rounded-full border border-black text-sm">
+      Bedroom
+    </button>
+
+    <button class="px-6 py-2 rounded-full border border-black text-sm">
+      Workspace
+    </button>
+
+    <button class="px-6 py-2 rounded-full border border-black text-sm">
+      Dining
+    </button>
+
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+
+    <?php foreach($products as $item): ?>
+    <div class="bg-white rounded-3xl border border-[#EEEEEE] p-4 hover:shadow-xl transition duration-300">
+
+      <!-- Image -->
+      <div class="bg-[#FAFAFA] rounded-3xl overflow-hidden">
+        <img 
+          src="<?= $item['image']; ?>" 
+          alt="<?= $item['name']; ?>"
+          class="w-full h-[240px] object-cover transition duration-300"
+        >
+      </div>
+
+      <!-- Content -->
+      <div class="pt-4">
+        <div class="flex justify-between items-start gap-3">
+          <h3 class="text-lg font-medium text-[#1E1E1E]">
+            <?= $item['name']; ?>
+          </h3>
+
+          <span class="text-[#1E1E1E] font-medium">
+            <?= $item['price']; ?>
+          </span>
+        </div>
+
+        <p class="text-sm text-[#777] mt-1">
+          <?= $item['category']; ?>
+        </p>
+
+        <!-- Button -->
+        <div class="flex gap-3 mt-5">
+
+          <a href="#" class="w-1/2 text-center border border-black py-2 rounded-full text-sm hover:bg-gray-100 transition">
+            Add to Cart
+          </a>
+
+          <a href="#" class="w-1/2 text-center bg-black text-white py-2 rounded-full text-sm hover:bg-[#222] transition">
+            Buy Now
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+    <?php endforeach; ?>
+
+  </div>
+
+</section>
+<!-- End : Explore Collections -->
 
 </main>
 

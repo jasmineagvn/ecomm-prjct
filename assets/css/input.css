@@ -10,3 +10,7 @@
      font-family: 'Manrope', sans-serif;
    }
 }
+
+.product-card {
+  transition: all 0.3s ease;
+}
