@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/classes/Auth.php';
+require_once 'classes/Auth.php';
 
 $auth = new Auth();
 
-// Redirect kalau sudah login
+// redirect kalau sudah login
 if ($auth->isLoggedIn()) {
     header("Location: dashboard.php");
     exit();
@@ -14,12 +14,12 @@ $error = '';
 if ($_POST) {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
-    
+
     if (empty($username) || empty($password)) {
         $error = 'Email dan password harus diisi';
     } else {
         $result = $auth->login($username, $password);
-        
+
         if ($result['success']) {
             header("Location: " . $result['redirect']);
             exit();
@@ -33,27 +33,31 @@ if ($_POST) {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Domio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Domio</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-  body {
-    font-family: 'Manrope', sans-serif;
-  }
-</style>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+    }
+  </style>
 </head>
 
-<body class="bg-[#F9F6F2]">
+<body class="bg-[#FFFFFF]">
 
 <div class="min-h-screen flex items-center justify-center px-6">
 
   <!-- CONTAINER -->
   <div class="w-full max-w-6xl grid md:grid-cols-2 items-center gap-10">
 
-    <!-- LEFT SIDE (FORM) -->
+    <!-- LEFT -->
     <div>
 
       <h2 class="text-2xl font-semibold text-[#1E1E1E]">
@@ -95,13 +99,15 @@ if ($_POST) {
             <input 
               type="password" 
               name="password"
+              id="password"
               required
               placeholder="••••••••"
               class="w-full mt-2 px-4 py-3 rounded-full border border-[#D6CFC7] bg-transparent focus:outline-none focus:border-[#A67C52]"
             >
 
-            <!-- ICON (optional mata) -->
-            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer">
+            <!-- TOGGLE PASSWORD -->
+            <span onclick="togglePassword()" 
+              class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer">
               👁
             </span>
           </div>
@@ -131,33 +137,39 @@ if ($_POST) {
 
     </div>
 
+    <!-- RIGHT -->
+    <div class="relative h-screen flex items-center justify-end overflow-hidden">
 
-    <!-- RIGHT SIDE -->
-    <div class="relative flex items-center justify-center">
-
-      <!-- TEXT -->
-      <div class="absolute top-0 right-0 text-right max-w-sm">
-        <h2 class="text-3xl font-semibold text-[#6B4F2A]">
-          Welcome Back!
+    <!-- TEXT -->
+    <div class="absolute top-20 right-20 text-right max-w-sm z-10">
+        <h2 class="text-4xl font-semibold text-[#6B4F2A]">
+        Welcome Back!
         </h2>
 
-        <p class="text-sm text-gray-500 mt-2">
-          Sign in to access your shipping details and view your recent furniture orders.
+        <p class="text-sm text-gray-500 mt-3 leading-relaxed">
+        Sign in to access your shipping details and view your recent furniture orders.
         </p>
-      </div>
-
-      <!-- IMAGE -->
-      <img 
-        src="assets/images/login-chair.png" 
-        alt="Chair"
-        class="w-[350px] md:w-[420px] mt-20"
-      >
-
     </div>
 
+    <!-- IMAGE -->
+    <img 
+        src="assets/images/background/bg-login.png" 
+        alt="Chair"
+        class="absolute right-[-80px] bottom-0 w-[520px] md:w-[620px] object-contain"
+    >
+
+    </div>
   </div>
 
 </div>
+
+<!-- SCRIPT -->
+<script>
+function togglePassword() {
+  const input = document.getElementById("password");
+  input.type = input.type === "password" ? "text" : "password";
+}
+</script>
 
 </body>
 </html>
