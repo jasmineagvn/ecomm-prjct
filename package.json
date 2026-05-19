@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "browser-sync": "^3.0.4",
     "tailwindcss": "^3.4.17"
   }
 }

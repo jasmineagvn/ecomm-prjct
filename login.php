@@ -5,7 +5,7 @@ $auth = new Auth();
 
 // redirect kalau sudah login
 if ($auth->isLoggedIn()) {
-    header("Location: dashboard.php");
+    header("Location:../index.php");
     exit();
 }
 

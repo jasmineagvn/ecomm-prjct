@@ -4,6 +4,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+$count = 0;
+
+if(isset($_SESSION['cart'])){
+   foreach($_SESSION['cart'] as $item){
+      $count += $item['qty'];
+   }
+}
+
 // BASE URL
 $base_url = "/ecomm-prjct/";
 
@@ -91,16 +99,52 @@ function active($page) {
       </div>
 
       <!-- 🛒 CART -->
-      <a href="<?= $base_url ?>cart.php"
-        class="w-10 h-10 rounded-full bg-[#F7E9D7] flex items-center justify-center hover:scale-110 transition">
-        <img src="<?= $base_url ?>assets/icons/cart.svg" class="w-5 h-5">
+      <a href="<?= $base_url ?>cart.php" class="relative w-10 h-10 rounded-full bg-[#F7E9D7] flex items-center justify-center hover:scale-110 transition">
+
+          <img src="<?= $base_url ?>assets/icons/cart.svg" class="w-5 h-5">
+
+          <!-- Badge -->
+          <?php if($count > 0): ?>
+              <span class="absolute -top-1 -right-1 bg-black text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
+                  <?= $count ?>
+              </span>
+          <?php endif; ?>
+
       </a>
 
-      <!-- 👤 USER -->
-      <a href="<?= $base_url . (isset($_SESSION['user']) ? 'dashboard.php' : 'login.php'); ?>"
-        class="w-10 h-10 rounded-full bg-[#F7E9D7] flex items-center justify-center hover:scale-110 transition">
-        <img src="<?= $base_url ?>assets/icons/user.svg" class="w-5 h-5">
-      </a>
+      <!-- USER -->
+      <?php if(isset($_SESSION['username'])): ?>
+
+        <div class="flex items-center gap-3">
+
+          <!-- ICON -->
+          <div class="w-10 h-10 rounded-full bg-[#F7E9D7] flex items-center justify-center">
+            <img src="<?= $base_url ?>assets/icons/user.svg" class="w-5 h-5">
+          </div>
+
+          <!-- USERNAME -->
+          <span class="text-sm font-medium text-[#2D2D2D]">
+            <?= $_SESSION['username']; ?>
+          </span>
+
+          <!-- LOGOUT -->
+          <a href="<?= $base_url ?>logout.php"
+            class="text-sm text-red-500 hover:underline">
+            Logout
+          </a>
+
+        </div>
+
+      <?php else: ?>
+
+  <a href="<?= $base_url ?>login.php"
+    class="w-10 h-10 rounded-full bg-[#F7E9D7] flex items-center justify-center hover:scale-110 transition">
+
+    <img src="<?= $base_url ?>assets/icons/user.svg" class="w-5 h-5">
+
+  </a>
+
+<?php endif; ?>
 
     </div>
 

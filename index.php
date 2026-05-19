@@ -1,11 +1,21 @@
-<?php include 'components/header.php' ?>
+<?php
+
+session_start();
+
+include 'components/header.php';
+
+?>
 
 <main class="">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.umd.js"></script>
 
   <!-- Start : Hero -->
-    <div class="hero relative">
-      <img src="assets/images/background/bg-homee.svg" alt="" class="">
+    <div class="hero relative w-full overflow-hidden">
+    <img 
+      src="assets/images/background/bg-homee.svg" 
+      alt=""
+      class="w-full h-auto object-cover block"
+    >
       <!-- Content -->
       <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6">
 

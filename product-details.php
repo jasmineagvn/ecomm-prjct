@@ -95,9 +95,12 @@ $relatedProducts = array_slice($relatedProducts, 0, 3);
 
         <!-- BUTTON -->
         <div class="flex gap-4">
-          <button class="border border-[#543A14] px-6 py-2 rounded-full text-sm font-semibold text-[#543A14]">
+          <a 
+            href="<?= $base_url ?>cart.php?name=<?= urlencode($selectedProduct['name']); ?>"
+            class="border border-[#543A14] px-6 py-2 rounded-full text-sm font-semibold text-[#543A14] inline-block text-center"
+          >
             Add to Cart
-          </button>
+          </a>
 
           <button class="bg-black text-white px-6 py-2 rounded-full text-sm">
             Buy Now

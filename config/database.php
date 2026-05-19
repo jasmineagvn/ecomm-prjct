@@ -1,9 +1,9 @@
 <?php
 class Database {
-    private $host = "localhost";
+    private $host = "localhost:3307";
     private $user = "root";
     private $pass = "";
-    private $db   = "janjibaik_db";
+    private $db   = "db_ecomm";
     private $conn;
 
     public function getConnection() {
