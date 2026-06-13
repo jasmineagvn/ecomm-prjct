@@ -1,37 +1,58 @@
 <?php
+
 require_once 'classes/Auth.php';
 
 $auth = new Auth();
 
-// redirect kalau sudah login
+/*
+|--------------------------------------------------------------------------
+| SUDAH LOGIN?
+|--------------------------------------------------------------------------
+*/
+
 if ($auth->isLoggedIn()) {
-    header("Location:../index.php");
-    exit();
+
+  header("Location: index.php");
+  exit();
 }
 
 $error = '';
 
-if ($_POST) {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
+/*
+|--------------------------------------------------------------------------
+| PROSES LOGIN
+|--------------------------------------------------------------------------
+*/
 
-    if (empty($username) || empty($password)) {
-        $error = 'Email dan password harus diisi';
-    } else {
-        $result = $auth->login($username, $password);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        if ($result['success']) {
-            header("Location: " . $result['redirect']);
-            exit();
-        } else {
-            $error = $result['message'];
-        }
+  $email = trim($_POST['email']);
+  $password = $_POST['password'];
+
+  if (empty($email) || empty($password)) {
+
+    $error = 'Email dan password harus diisi';
+  } else {
+
+    $result = $auth->login(
+      $email,
+      $password
+    );
+
+    if ($result['success']) {
+
+      header("Location: " . $result['redirect']);
+      exit();
     }
+
+    $error = $result['message'];
+  }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,124 +73,139 @@ if ($_POST) {
 
 <body class="bg-[#FFFFFF]">
 
-<div class="min-h-screen flex items-center justify-center px-6">
+  <div class="min-h-screen flex items-center justify-center px-6">
 
-  <!-- CONTAINER -->
-  <div class="w-full max-w-6xl grid md:grid-cols-2 items-center gap-10">
+    <!-- CONTAINER -->
+    <div class="w-full max-w-7xl grid md:grid-cols-2 items-center gap-4">
 
-    <!-- LEFT -->
-    <div>
+      <!-- LEFT -->
+      <div>
 
-      <h2 class="text-2xl font-semibold text-[#1E1E1E]">
-        Log In
-      </h2>
+        <h2 class="text-2xl font-semibold text-[#1E1E1E]">
+          Log In
+        </h2>
 
-      <p class="text-sm text-gray-500 mt-2">
-        Enter your email and password to continue.
-      </p>
+        <p class="text-sm text-gray-500 mt-2">
+          Enter your email and password to continue.
+        </p>
 
-      <!-- ERROR -->
-      <?php if ($error): ?>
-        <div class="bg-red-100 text-red-600 px-4 py-2 rounded mt-4 text-sm">
-          <?= htmlspecialchars($error); ?>
-        </div>
-      <?php endif; ?>
+        <!-- ERROR -->
+        <?php if ($error): ?>
+          <div class="bg-red-100 text-red-600 px-4 py-2 rounded mt-4 text-sm">
+            <?= htmlspecialchars($error); ?>
+          </div>
+        <?php endif; ?>
 
-      <!-- FORM -->
-      <form method="POST" class="mt-6 space-y-5">
+        <!-- FORM -->
+        <form method="POST" class="mt-6 space-y-5">
 
-        <!-- EMAIL -->
-        <div>
-          <label class="text-sm text-[#1E1E1E]">Email Address</label>
-          <input 
-            type="text" 
-            name="username"
-            required
-            value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>"
-            placeholder="Example123@gmail.com"
-            class="w-full mt-2 px-4 py-3 rounded-full border border-[#D6CFC7] bg-transparent focus:outline-none focus:border-[#A67C52]"
-          >
-        </div>
-
-        <!-- PASSWORD -->
-        <div>
-          <label class="text-sm text-[#1E1E1E]">Password</label>
-
-          <div class="relative">
-            <input 
-              type="password" 
-              name="password"
-              id="password"
+          <!-- EMAIL -->
+          <div>
+            <label class="text-sm text-[#1E1E1E]">Email Address</label>
+            <input
+              type="email"
+              name="email"
               required
-              placeholder="••••••••"
-              class="w-full mt-2 px-4 py-3 rounded-full border border-[#D6CFC7] bg-transparent focus:outline-none focus:border-[#A67C52]"
-            >
-
-            <!-- TOGGLE PASSWORD -->
-            <span onclick="togglePassword()" 
-              class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer">
-              👁
-            </span>
+              value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>"
+              placeholder="Example123@gmail.com"
+              class="w-full max-w-[600px] mt-2 px-4 py-3 rounded-full border border-[#D6CFC7] focus:outline-none focus:border-[#543A14]">
           </div>
 
-          <p class="text-xs text-gray-400 mt-2 cursor-pointer hover:underline">
-            Forgot Password?
+          <!-- PASSWORD -->
+          <div>
+
+            <label class="text-sm text-[#1E1E1E]">
+              Password
+            </label>
+
+            <div class="relative max-w-[600px] mt-2">
+
+              <input
+                type="password"
+                name="password"
+                id="password"
+                required
+                placeholder="••••••••"
+                class="w-full px-4 py-3 rounded-full border border-[#D6CFC7] pr-12">
+
+              <button
+                type="button"
+                onclick="togglePassword()"
+                class="absolute right-4 top-1/2 -translate-y-1/2">
+
+                <img
+                  src="./assets/icons/eye.svg"
+                  alt="eye"
+                  class="w-5 h-5 opacity-60 hover:opacity-100">
+
+              </button>
+
+            </div>
+
+            <a
+              href="forgot-password.php"
+              class="inline-block text-xs text-[#8B7355] hover:text-[#543A14] mt-4 hover:underline">
+
+              Forgot Password?
+
+            </a>
+
+          </div>
+
+          <!-- BUTTON -->
+          <div class="max-w-[600px]">
+            <button
+              type="submit"
+              class="w-full bg-black text-white py-3 rounded-full hover:opacity-90 transition">
+              Log In
+            </button>
+          </div>
+
+        </form>
+
+        <!-- REGISTER -->
+        <p class="text-xs text-gray-500 mt-6 text-center">
+          Don’t have an account?
+          <a href="register.php" class="font-semibold text-black">
+            Create Account
+          </a>
+        </p>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="relative min-h-screen flex items-center justify-center">
+
+        <!-- TEXT -->
+        <div class="absolute top-28 right-16 text-right max-w-sm z-10">
+          <h2 class="text-4xl font-semibold text-[#6B4F2A]">
+            Welcome Back!
+          </h2>
+
+          <p class="text-sm text-gray-500 mt-3 leading-relaxed">
+            Sign in to access your shipping details and view your recent furniture orders.
           </p>
         </div>
 
-        <!-- BUTTON -->
-        <button 
-          type="submit"
-          class="w-full bg-black text-white py-3 rounded-full text-sm hover:opacity-90 transition"
-        >
-          Log In
-        </button>
+        <!-- IMAGE -->
+        <img
+          src="assets/images/background/bg-login.svg"
+          alt="Chair"
+          class="w-full max-w-[750px] object-contain -mt-32">
 
-      </form>
-
-      <!-- REGISTER -->
-      <p class="text-xs text-gray-500 mt-6 text-center">
-        Don’t have an account? 
-        <a href="register.php" class="font-semibold text-black">
-          Create Account
-        </a>
-      </p>
-
+      </div>
     </div>
 
-    <!-- RIGHT -->
-    <div class="relative h-screen flex items-center justify-end overflow-hidden">
-
-    <!-- TEXT -->
-    <div class="absolute top-20 right-20 text-right max-w-sm z-10">
-        <h2 class="text-4xl font-semibold text-[#6B4F2A]">
-        Welcome Back!
-        </h2>
-
-        <p class="text-sm text-gray-500 mt-3 leading-relaxed">
-        Sign in to access your shipping details and view your recent furniture orders.
-        </p>
-    </div>
-
-    <!-- IMAGE -->
-    <img 
-        src="assets/images/background/bg-login.png" 
-        alt="Chair"
-        class="absolute right-[-80px] bottom-0 w-[520px] md:w-[620px] object-contain"
-    >
-
-    </div>
   </div>
 
-</div>
-
-<!-- SCRIPT -->
-<script>
-function togglePassword() {
-  const input = document.getElementById("password");
-  input.type = input.type === "password" ? "text" : "password";
-}
-</script>
+  <!-- SCRIPT -->
+  <script>
+    function togglePassword() {
+      const input = document.getElementById("password");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
 
 </body>
+
 </html>

@@ -1,104 +1,154 @@
 <?php
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 require_once __DIR__ . '/../config/database.php';
 
-class Auth {
-
+class Auth
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $database = new Database();
         $this->db = $database->getConnection();
+
+        if (!$this->db) {
+            die("Koneksi database gagal.");
+        }
     }
 
-    // LOGIN
-    public function login($username, $password) {
+    /*
+    |--------------------------------------------------------------------------
+    | LOGIN
+    |--------------------------------------------------------------------------
+    */
 
+    public function login($email, $password)
+    {
         try {
 
-            $query = "SELECT * FROM users WHERE username = ?";
+            $query = "SELECT * FROM users WHERE email = ? LIMIT 1";
+
             $stmt = $this->db->prepare($query);
-            $stmt->execute([$username]);
+            $stmt->execute([$email]);
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // CEK PASSWORD
-            if ($user && password_verify($password, $user['password'])) {
-
-                // SESSION USER
-                $_SESSION['user_logged_in'] = true;
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['email'] = $user['email'];
-
-                return [
-                    'success' => true,
-                    'message' => 'Login berhasil',
-                    'redirect' => 'index.php'
-                ];
-
-            } else {
+            if (!$user) {
 
                 return [
                     'success' => false,
-                    'message' => 'Username atau password salah'
+                    'message' => 'Email tidak ditemukan'
                 ];
-
             }
 
-        } catch(PDOException $e) {
+            if (!password_verify($password, $user['password'])) {
+
+                return [
+                    'success' => false,
+                    'message' => 'Password salah'
+                ];
+            }
+
+            // SESSION LOGIN
+            $_SESSION['user_logged_in'] = true;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+
+            return [
+                'success' => true,
+                'message' => 'Login berhasil',
+                'redirect' => 'index.php'
+            ];
+        } catch (PDOException $e) {
 
             return [
                 'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
+                'message' => 'Database Error: ' . $e->getMessage()
             ];
-
         }
-
     }
 
-    // LOGOUT
-    public function logout() {
+    /*
+    |--------------------------------------------------------------------------
+    | LOGOUT
+    |--------------------------------------------------------------------------
+    */
 
+    public function logout()
+    {
         session_unset();
         session_destroy();
 
         header("Location: login.php");
         exit();
-
     }
 
-    // CEK LOGIN
-    public function isLoggedIn() {
+    /*
+    |--------------------------------------------------------------------------
+    | CEK LOGIN
+    |--------------------------------------------------------------------------
+    */
 
-        return isset($_SESSION['user_logged_in']) 
-            && $_SESSION['user_logged_in'] === true;
-
+    public function isLoggedIn()
+    {
+        return isset($_SESSION['user_logged_in']) &&
+            $_SESSION['user_logged_in'] === true;
     }
 
-    // WAJIB LOGIN
-    public function requireLogin() {
+    /*
+    |--------------------------------------------------------------------------
+    | WAJIB LOGIN
+    |--------------------------------------------------------------------------
+    */
 
+    public function requireLogin()
+    {
         if (!$this->isLoggedIn()) {
 
             header("Location: login.php");
             exit();
-
         }
-
     }
 
-    // UPDATE PROFILE
-    public function updateProfile($id, $username, $email) {
+    /*
+    |--------------------------------------------------------------------------
+    | GET USER LOGIN
+    |--------------------------------------------------------------------------
+    */
 
+    public function getUser()
+    {
+        if (!$this->isLoggedIn()) {
+            return null;
+        }
+
+        return [
+            'id'       => $_SESSION['user_id'],
+            'username' => $_SESSION['username'],
+            'email'    => $_SESSION['email']
+        ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE PROFILE
+    |--------------------------------------------------------------------------
+    */
+
+    public function updateProfile($id, $username, $email)
+    {
         try {
 
-            $query = "UPDATE users 
-                      SET username = ?, email = ?
-                      WHERE id = ?";
+            $query = "
+                UPDATE users
+                SET username = ?, email = ?
+                WHERE id = ?
+            ";
 
             $stmt = $this->db->prepare($query);
 
@@ -109,24 +159,19 @@ class Auth {
             ]);
 
             // UPDATE SESSION
-            $_SESSION['user_username'] = $username;
-            $_SESSION['user_email'] = $email;
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $email;
 
             return [
                 'success' => true,
                 'message' => 'Profile berhasil diperbarui'
             ];
-
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
 
             return [
                 'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
+                'message' => 'Database Error: ' . $e->getMessage()
             ];
-
         }
-
     }
-
 }
-?>

@@ -1,135 +1,186 @@
 <?php include 'components/header.php'; ?>
 
 <?php
-$products = [
-  ["image"=>"assets/images/shop/livingroom/mika-armchair.svg","name"=>"Mika Armchair","category"=>"Living Room","price"=>"$185.00"],
-  ["image"=>"assets/images/shop/livingroom/mika-sofa.svg","name"=>"Mika Sectional Sofa","category"=>"Living Room","price"=>"$799.00"],
-  ["image"=>"assets/images/shop/livingroom/sore-velvet.svg","name"=>"Sora Velvet Ottoman","category"=>"Living Room","price"=>"$120.00"],
-  ["image"=>"assets/images/shop/livingroom/jute-rug.svg","name"=>"Taro Jute Rug","category"=>"Living Room","price"=>"$85.00"],
-  ["image"=>"assets/images/shop/livingroom/dara-mirror.svg","name"=>"Dara Mirror","category"=>"Living Room","price"=>"$110.00"],
-  ["image"=>"assets/images/shop/bedroom/nami-table.svg","name"=>"Nami Side Table","category"=>"Bedroom","price"=>"$89.00"],
-  ["image"=>"assets/images/shop/bedroom/rumi-wardrobe.svg","name"=>"Rumi Wardrobe","category"=>"Bedroom","price"=>"$450.00"],
-  ["image"=>"assets/images/shop/bedroom/nami-bed.svg","name"=>"Nami Bed Frame","category"=>"Bedroom","price"=>"$550.95"],
-  ["image"=>"assets/images/shop/workspace/zora-lamp.svg","name"=>"Zora Desk Lamp","category"=>"Workspace","price"=>"$45.00"],
-  ["image"=>"assets/images/shop/workspace/kala-desk.svg","name"=>"Kala Working Desk","category"=>"Workspace","price"=>"$320.00"],
-  ["image"=>"assets/images/shop/workspace/sora-lamp.svg","name"=>"Sora Table Lamp","category"=>"Workspace","price"=>"$45.00"],
-  ["image"=>"assets/images/shop/dining/finn-table.svg","name"=>"Finn Dining Table","category"=>"Dining","price"=>"$520.00"],
-  ["image"=>"assets/images/shop/dining/mika-spoon.svg","name"=>"Mika Spoon Set","category"=>"Dining","price"=>"$44.00"],
-];
 
-$productName = $_GET['name'] ?? '';
-$selectedProduct = null;
+require_once 'config/database.php';
 
-// cari produk
-foreach ($products as $p) {
-  if ($p['name'] === $productName) {
-    $selectedProduct = $p;
-    break;
-  }
-}
+$database = new Database();
+$db = $database->getConnection();
 
-// fallback
+// AMBIL ID PRODUK
+$id = $_GET['id'] ?? 0;
+
+// PRODUK AKTIF
+$query = "SELECT * FROM products WHERE id = ?";
+$stmt = $db->prepare($query);
+$stmt->execute([$id]);
+
+$selectedProduct = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// JIKA PRODUK TIDAK ADA
 if (!$selectedProduct) {
-  $selectedProduct = $products[0];
+
+  header("Location: shop.php");
+  exit();
 }
 
-// 🔥 RELATED PRODUCTS (3 RANDOM, TANPA PRODUK AKTIF)
-$relatedProducts = array_filter($products, function($p) use ($selectedProduct) {
-  return $p['name'] !== $selectedProduct['name'];
-});
+// RELATED PRODUCTS
+$queryRelated = "
+    SELECT *
+    FROM products
+    WHERE id != ?
+    ORDER BY RAND()
+    LIMIT 3
+";
 
-$relatedProducts = array_values($relatedProducts);
-shuffle($relatedProducts);
-$relatedProducts = array_slice($relatedProducts, 0, 3);
+$stmtRelated = $db->prepare($queryRelated);
+$stmtRelated->execute([$id]);
+
+$relatedProducts = $stmtRelated->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <main>
 
   <!-- HERO -->
-  <section class="w-full">
-    <div class="relative w-full h-[200px] overflow-hidden">
-      <img src="assets/images/background/bg-details.svg" class="w-full h-full object-cover">
-      <div class="absolute inset-0 flex items-center justify-center text-white">
-        <h1 class="text-3xl md:text-5xl font-bold">Products Details</h1>
-      </div>
+  <section class="relative h-[180px] overflow-hidden">
+
+    <img
+      src="assets/images/background/bg-details.svg"
+      class="w-full h-full object-cover">
+
+    <div class="absolute inset-0 flex items-center justify-center">
+
+      <h1 class="text-white text-5xl font-bold">
+        Products Details
+      </h1>
+
     </div>
+
   </section>
 
 
-  <!-- DETAIL -->
-  <section class="max-w-6xl mx-auto px-6 py-10">
+  <section class="max-w-6xl mx-auto px-6 py-12">
 
-    <a href="shop.php" class="text-sm text-gray-500 mb-6 inline-block">← Back</a>
+    <a href="shop.php"
+      class="text-gray-500 text-sm">
+      ← Back
+    </a>
 
-    <div class="grid md:grid-cols-2 gap-10">
+    <div class="grid md:grid-cols-2 gap-12 mt-6">
 
       <!-- IMAGE -->
-      <div class="rounded-2xl p-6">
-        <img src="<?= $selectedProduct['image']; ?>" class="w-full h-auto object-cover">
+      <div class="bg-[#FAFAFA] rounded-3xl p-8 flex items-center justify-center">
+
+        <img
+          src="<?= htmlspecialchars($selectedProduct['image']) ?>"
+          alt="<?= htmlspecialchars($selectedProduct['name']) ?>"
+          class="max-h-[350px] object-contain">
+
       </div>
 
       <!-- INFO -->
       <div>
 
-        <p class="text-sm text-[#543A14] mb-2">
-          <?= $selectedProduct['category']; ?>
+        <p class="text-sm text-[#8B7355] mb-2">
+          <?= htmlspecialchars($selectedProduct['category']) ?>
         </p>
 
-        <h1 class="text-[38px] md:text-3xl font-bold mb-3">
-          <?= $selectedProduct['name']; ?>
+        <h1 class="text-4xl font-bold mb-4">
+          <?= htmlspecialchars($selectedProduct['name']) ?>
         </h1>
 
-        <p class="text-[#543A14] text-sm mb-6">
-          A masterpiece of comfort and minimalist design. Crafted with premium upholstery and ergonomic support, making it the perfect centerpiece for your modern living room.
+        <p class="text-[#6B6B6B] text-sm leading-relaxed mb-6">
+          <?= htmlspecialchars($selectedProduct['description']) ?>
         </p>
 
-        <p class="text-xl font-semibold mb-4">
-          <?= $selectedProduct['price']; ?>
-        </p>
+        <h2 class="text-2xl font-bold mb-3">
+          $<?= number_format($selectedProduct['price'], 2) ?>
+        </h2>
+
+        <!-- RATING -->
+        <div class="flex items-center gap-2 mb-6">
+
+          <span class="text-yellow-500">
+            ★★★★★
+          </span>
+
+          <span class="text-xs text-gray-500">
+            4.8 (120 reviews)
+          </span>
+
+        </div>
 
         <!-- QUANTITY -->
         <div class="flex items-center gap-3 mb-6">
-          <span class="text-sm text-[#543A14]">Quantity</span>
-          <input type="number" value="1" class="w-16 border rounded px-2 py-1 text-center">
+
+          <span class="text-sm">
+            Quantity
+          </span>
+
+          <input
+            type="number"
+            min="1"
+            value="1"
+            class="w-20 border rounded-lg px-3 py-2 text-center">
+
         </div>
 
         <!-- BUTTON -->
-        <div class="flex gap-4">
-          <a 
-            href="<?= $base_url ?>cart.php?name=<?= urlencode($selectedProduct['name']); ?>"
-            class="border border-[#543A14] px-6 py-2 rounded-full text-sm font-semibold text-[#543A14] inline-block text-center"
-          >
-            Add to Cart
+        <div class="flex gap-3 mb-8">
+
+          <a
+            href="add-to-cart.php?id=<?= $selectedProduct['id']; ?>"
+            class="px-8 py-3
+                  border border-[#D6CFC7]
+                  rounded-full
+                  bg-white text-[#543A14]
+                  hover:bg-[#543A14]
+                  hover:text-white
+                  hover:border-[#543A14]
+                  transition-all duration-300">
+
+            Add To Cart
+
           </a>
 
-          <button class="bg-black text-white px-6 py-2 rounded-full text-sm">
+          <a
+            href="#"
+            class="px-8 py-3
+                  bg-black text-white
+                  rounded-full
+                  hover:bg-[#FFF0DC]
+                  hover:text-[#543A14]
+                  transition-all duration-300">
+
             Buy Now
-          </button>
+
+          </a>
+
         </div>
 
-        <div class="mt-6 space-y-3 text-[#8B7355] text-sm">
-            <!-- Item 1 -->
-            <div class="flex items-center gap-3">
-                <img src="assets/icons/delivery.svg" class="w-5 h-5 object-contain">
-                <p>Free standard delivery on all orders</p>
-            </div>
+        <!-- INFO -->
+        <div class="space-y-3 text-sm text-gray-500">
 
-            <!-- Item 2 -->
-            <div class="flex items-center gap-3">
-                <img src="assets/icons/estimated.svg" class="w-5 h-5 object-contain">
-                <p>Estimated delivery: 2-4 business days</p>
-            </div>
+          <p>
+            🚚 Free standard delivery on all orders
+          </p>
 
-            <!-- Item 3 -->
-            <div class="flex items-center gap-3">
-                <img src="assets/icons/location.svg" class="w-5 h-5 object-contain">
-                <p>Available for shipping nationwide</p>
-            </div>
+          <p>
+            📦 Estimated delivery: 2–4 business days
+          </p>
+
+          <p>
+            📍 Available for shipping nationwide
+          </p>
+
         </div>
+
       </div>
-    </div>
-  </section>
 
+    </div>
+
+  </section>
 
   <!-- RELATED -->
   <section class="max-w-5xl mx-auto px-6 pb-20">
@@ -146,35 +197,96 @@ $relatedProducts = array_slice($relatedProducts, 0, 3);
 
       <?php foreach ($relatedProducts as $p): ?>
 
-        <a href="product-details.php?name=<?= urlencode($p['name']); ?>"
-           class="bg-white rounded-2xl p-4 border border-[#F2F2F2] shadow-sm hover:shadow-md transition block">
+        <div
+          class="bg-white rounded-[24px]
+                border border-[#F0F0F0]
+                p-5
+                shadow-sm
+                hover:shadow-lg
+                transition-all duration-300">
 
-          <div class="rounded-xl overflow-hidden p-2">
-            <img src="<?= $p['image']; ?>" class="w-full h-auto object-cover rounded-lg">
-          </div>
+          <a href="product-details.php?id=<?= $p['id']; ?>">
 
-          <div class="mt-3 flex justify-between">
-            <div>
-              <h3 class="text-sm font-medium"><?= $p['name']; ?></h3>
-              <p class="text-xs text-gray-400"><?= $p['category']; ?></p>
+            <div
+              class="bg-[#FAFAFA]
+                    rounded-[20px]
+                    h-[280px]
+                    flex items-center justify-center
+                    overflow-hidden">
+
+              <img
+                src="<?= $p['image']; ?>"
+                alt="<?= $p['name']; ?>"
+                class="max-h-[220px] max-w-[220px] object-contain">
+
             </div>
 
-            <p class="text-sm font-medium"><?= $p['price']; ?></p>
-          </div>
+            <div class="mt-3 flex justify-between">
+              <div>
+                <h3 class="text-sm font-medium"><?= $p['name']; ?></h3>
+                <p class="text-xs text-gray-400"><?= $p['category']; ?></p>
+              </div>
 
-          <div class="flex gap-2 mt-3">
-            <button class="flex-1 border border-black rounded-full py-1 text-xs">Add to Cart</button>
-            <button class="flex-1 bg-black text-white rounded-full py-1 text-xs">Buy Now</button>
-          </div>
+              <p class="text-sm font-medium">$<?= number_format($p['price'], 2); ?></p>
+            </div>
 
-        </a>
+            <div class="flex gap-2 mt-4">
+
+              <a
+                href="add-to-cart.php?id=<?= $p['id']; ?>"
+                class="flex-1 text-center
+                      border border-[#D6CFC7]
+                      rounded-full py-2 text-sm
+                      bg-white text-[#543A14]
+                      hover:bg-[#543A14]
+                      hover:text-white
+                      hover:border-[#543A14]
+                      transition-all duration-300">
+
+                Add To Cart
+
+              </a>
+
+              <a
+                href="product-details.php?id=<?= $p['id']; ?>"
+                class="flex-1 text-center
+                      bg-black text-white
+                      rounded-full py-2 text-sm
+                      hover:bg-[#FFF0DC]
+                      hover:text-[#543A14]
+                      transition-all duration-300">
+
+                Buy Now
+
+              </a>
+
+            </div>
+
+          </a>
+
+        </div>
 
       <?php endforeach; ?>
-
-    </div>
 
   </section>
 
 </main>
+
+<!-- VIEW -->
+<div class="text-center mb-16">
+
+  <a
+    href="shop.php"
+    class="bg-black text-white
+            px-10 py-3
+            rounded-full
+            hover:bg-[#FFF0DC]
+            hover:text-[#543A14]
+            transition-all duration-300">
+
+    View More
+
+  </a>
+</div>
 
 <?php include 'components/footer.php'; ?>

@@ -1,127 +1,163 @@
-<footer class="bg-[#543A14] mt-20">
+<footer class="bg-[#543A14] mt-14">
 
   <!-- Main Footer -->
-  <div class="max-w-7xl mx-auto px-16 py-14 flex flex-col md:flex-row justify-between gap-12">
+  <div class="max-w-6xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between gap-12">
 
     <!-- Left Section -->
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-4">
 
       <!-- Logo -->
-      <img 
-        src="./assets/logo-white.svg" 
-        alt="Domio Logo" 
-        class="w-28"
-      />
+      <img
+        src="<?= $base_url ?>assets/images/logo/logo-white.svg"
+        alt="Domio Logo"
+        class="w-28">
 
       <!-- Description -->
-      <p class="text-white text-base leading-relaxed max-w-md">
-        Crafting timeless comfort for every corner of your home. Your journey
-        to a modern and stylish living starts here.
+      <p class="text-white/90 text-base leading-relaxed max-w-md">
+
+        Crafting timeless comfort for every corner of your home.
+        Your journey to a modern and stylish living starts here.
+
       </p>
 
     </div>
 
     <!-- Right Section -->
-    <div class="flex flex-col sm:flex-row gap-16">
+    <div class="flex flex-col sm:flex-row gap-12">
 
       <!-- Shop By Room -->
-      <div class="flex flex-col gap-5">
-        <h2 class="text-white font-semibold text-lg">
+      <div class="flex flex-col gap-4">
+
+        <h2 class="text-white font-semibold">
+
           Shop By Room
+
         </h2>
 
-        <ul class="flex flex-col gap-3 text-white">
+        <ul class="flex flex-col gap-2 text-sm">
+
           <li>
-            <a href="#" class="hover:underline">
+            <a href="shop.php?category=living-room"
+              class="text-white/90 hover:text-[#FFF0DC] transition">
               Living Room
             </a>
           </li>
 
           <li>
-            <a href="#" class="hover:underline">
+            <a href="shop.php?category=bedroom"
+              class="text-white/90 hover:text-[#FFF0DC] transition">
               Bedroom
             </a>
           </li>
 
           <li>
-            <a href="#" class="hover:underline">
+            <a href="shop.php?category=workspace"
+              class="text-white/90 hover:text-[#FFF0DC] transition">
               Workspace
             </a>
           </li>
 
           <li>
-            <a href="#" class="hover:underline">
+            <a href="shop.php?category=dining"
+              class="text-white/90 hover:text-[#FFF0DC] transition">
               Dining Room
             </a>
           </li>
+
         </ul>
+
       </div>
 
       <!-- Follow Us -->
-      <div class="flex flex-col gap-5">
-        <h2 class="text-white font-semibold text-lg">
+      <div class="flex flex-col gap-4">
+
+        <h2 class="text-white font-semibold">
           Follow Us
         </h2>
 
-        <ul class="flex flex-col gap-3">
+        <ul class="flex flex-col gap-2 text-sm">
 
           <li>
-            <a href="#" class="flex items-center gap-3 text-white hover:underline">
-              <img 
-                src="./assets/icons/instagram.svg" 
-                alt="Instagram" 
-                class="w-5 h-5"
-              />
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
+
+              <img
+                src="<?= $base_url ?>assets/icons/instagram.svg"
+                class="w-4 h-4">
+
               Instagram
+
             </a>
           </li>
 
           <li>
-            <a href="#" class="flex items-center gap-3 text-white hover:underline">
-              <img 
-                src="./assets/icons/whatsapp.svg" 
-                alt="WhatsApp" 
-                class="w-5 h-5"
-              />
+            <a
+              href="https://www.whatsapp.com"
+              target="_blank"
+              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
+
+              <img
+                src="<?= $base_url ?>assets/icons/whatsapp.svg"
+                class="w-4 h-4">
+
               WhatsApp
+
             </a>
           </li>
 
           <li>
-            <a href="#" class="flex items-center gap-3 text-white hover:underline">
-              <img 
-                src="./assets/icons/twitter.svg" 
-                alt="Twitter" 
-                class="w-5 h-5"
-              />
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
+
+              <img
+                src="<?= $base_url ?>assets/icons/twitter.svg"
+                class="w-4 h-4">
+
               Twitter
+
             </a>
           </li>
 
           <li>
-            <a href="#" class="flex items-center gap-3 text-white hover:underline">
-              <img 
-                src="./assets/icons/linkedin.svg" 
-                alt="LinkedIn" 
-                class="w-5 h-5"
-              />
+            <a
+              href="https://www.linkedin.com"
+              target="_blank"
+              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
+
+              <img
+                src="<?= $base_url ?>assets/icons/linkedin.svg"
+                class="w-4 h-4">
+
               LinkedIn
+
             </a>
           </li>
 
         </ul>
-      </div>
 
+      </div>
+      
     </div>
+
   </div>
 
   <!-- Bottom Copyright -->
-  <div class="border-t border-white/40">
-    <div class="max-w-7xl mx-auto px-16 py-6">
-      <p class="text-white text-sm">
+  <div class="border-t border-white/20">
+
+    <div class="max-w-6xl mx-auto px-8 py-4">
+
+      <p class="text-white/70 text-xs">
+
         ©2026 Domio Furniture. All rights reserved.
+
       </p>
+
     </div>
+
   </div>
 
 </footer>

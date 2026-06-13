@@ -1,224 +1,257 @@
 <?php include 'components/header.php'; ?>
 
 <?php
-$products = [
-  ["image"=>"assets/images/shop/livingroom/mika-armchair.svg",
-    "name"=>"Mika Armchair",
-    "category"=>"living-room",
-    "price"=>"$185.00"
-  ],
-  ["image"=>"assets/images/shop/livingroom/mika-sofa.svg",
-    "name"=>"Mika Sectional Sofa",
-    "category"=>"living-room",
-    "price"=>"$799.00"
-  ],
-  ["image"=>"assets/images/shop/livingroom/sore-velvet.svg",
-    "name"=>"Sora Velvet Ottoman",
-    "category"=>"living-room",
-    "price"=>"$120.00"
-  ],
-  ["image"=>"assets/images/shop/livingroom/jute-rug.svg",
-    "name"=>"Taro Jute Rug",
-    "category"=>"living-room",
-    "price"=>"$85.00"
-  ],
-  ["image"=>"assets/images/shop/livingroom/dara-mirror.svg",
-    "name"=>"Dara Mirror",
-    "category"=>"living-room",
-    "price"=>"$110.00"
-  ],
-  ["image"=>"assets/images/shop/bedroom/nami-table.svg",
-    "name"=>"Nami Side Table",
-    "category"=>"bedroom",
-    "price"=>"$89.00"
-  ],
-  ["image"=>"assets/images/shop/bedroom/rumi-wardrobe.svg",
-    "name"=>"Rumi Wardrobe",
-    "category"=>"bedroom",
-    "price"=>"$450.00"
-  ],
-  ["image"=>"assets/images/shop/bedroom/nami-bed.svg",
-    "name"=>"Nami Bed Frame",
-    "category"=>"bedroom",
-    "price"=>"$550.95"
-  ],
-  ["image"=>"assets/images/shop/workspace/zora-lamp.svg",
-    "name"=>"Zora Desk Lamp",
-    "category"=>"workspace",
-    "price"=>"$45.00"
-  ],
-  ["image"=>"assets/images/shop/workspace/kala-desk.svg",
-    "name"=>"Kala Working Desk",
-    "category"=>"workspace",
-    "price"=>"$320.00"
-  ],
-  ["image"=>"assets/images/shop/workspace/sora-lamp.svg",
-    "name"=>"Sora Table Lamp",
-    "category"=>"workspace",
-    "price"=>"$45.00"
-  ],
-  ["image"=>"assets/images/shop/dining/finn-table.svg",
-    "name"=>"Finn Dining Table",
-    "category"=>"dining",
-    "price"=>"$520.00"
-  ],
-  ["image"=>"assets/images/shop/dining/mika-spoon.svg",
-    "name"=>"Mika Spoon Set",
-    "category"=>"dining",
-    "price"=>"$44.00"
-  ],
-];
-$search = $_GET['search'] ?? '';
+
+require_once 'config/database.php';
+
+$database = new Database();
+$db = $database->getConnection();
+
+$category = $_GET['category'] ?? '';
+$search = trim($_GET['search'] ?? '');
+
+$params = [];
+
+$query = "
+    SELECT *
+    FROM products
+    WHERE 1=1
+";
+
+if (!empty($category)) {
+
+  $query .= "
+        AND LOWER(REPLACE(category,' ','-')) = ?
+    ";
+
+  $params[] = $category;
+}
+
+if (!empty($search)) {
+
+  $query .= "
+        AND (
+            name LIKE ?
+            OR category LIKE ?
+            OR description LIKE ?
+        )
+    ";
+
+  $params[] = "%$search%";
+  $params[] = "%$search%";
+  $params[] = "%$search%";
+}
+
+$query .= " ORDER BY id DESC";
+
+$stmt = $db->prepare($query);
+$stmt->execute($params);
+
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <main>
 
   <!-- HERO -->
   <section class="w-full">
-    <div class="relative w-full h-[400px] overflow-hidden">
-      <img src="assets/images/background/bg-shop.svg" class="w-full h-full object-cover">
+    
+    <div class="relative w-full h-[350px] overflow-hidden">
 
-      <div class="absolute inset-0 flex items-center justify-center text-white">
-        <h1 class="text-4xl md:text-[64px] font-bold">The Shop</h1>
+      <img
+        src="assets/images/background/bg-shop.svg"
+        alt="Shop Banner"
+        class="w-full h-full object-cover">
+
+      <div class="absolute inset-0 flex items-center justify-center">
+
+        <h1 class="text-white text-5xl md:text-7xl font-bold">
+          The Shop
+        </h1>
+
       </div>
+
     </div>
   </section>
 
+  <?php if (!empty($search)): ?>
 
-  <!-- CATEGORY FILTER -->
-  <section class="py-8">
+    <section class="pt-8">
+
+      <div class="max-w-7xl mx-auto px-6">
+
+        <p class="text-[#543A14]">
+
+          Search result for:
+
+          <span class="font-semibold">
+            "<?= htmlspecialchars($search) ?>"
+          </span>
+
+        </p>
+
+      </div>
+
+    </section>
+
+  <?php endif; ?>
+
+  <!-- CATEGORY -->
+  <section class="py-10">
+
     <div class="max-w-7xl mx-auto px-6">
 
-      <div class="flex flex-wrap justify-center gap-8 text-sm md:text-base">
+      <div class="flex justify-center flex-wrap gap-8">
 
-        <button class="filter-btn text-[#D9A86C] font-medium" data-category="all">All</button>
-        <button class="filter-btn text-[#2D2D2D]" data-category="living-room">Living Room</button>
-        <button class="filter-btn text-[#2D2D2D]" data-category="bedroom">Bedroom</button>
-        <button class="filter-btn text-[#2D2D2D]" data-category="workspace">Workspace</button>
-        <button class="filter-btn text-[#2D2D2D]" data-category="dining">Dining</button>
+        <a
+          href="shop.php"
+          class="<?= empty($category) ? 'text-[#D9A86C] font-medium' : '' ?>">
+          All
+        </a>
+
+        <a
+          href="shop.php?category=living-room"
+          class="<?= $category == 'living-room' ? 'text-[#D9A86C] font-medium' : '' ?>">
+          Living Room
+        </a>
+
+        <a
+          href="shop.php?category=bedroom"
+          class="<?= $category == 'bedroom' ? 'text-[#D9A86C] font-medium' : '' ?>">
+          Bedroom
+        </a>
+
+        <a
+          href="shop.php?category=workspace"
+          class="<?= $category == 'workspace' ? 'text-[#D9A86C] font-medium' : '' ?>">
+          Workspace
+        </a>
+
+        <a
+          href="shop.php?category=dining"
+          class="<?= $category == 'dining' ? 'text-[#D9A86C] font-medium' : '' ?>">
+          Dining
+        </a>
 
       </div>
 
     </div>
+
   </section>
 
-
-  <!-- PRODUCT GRID -->
+  <!-- PRODUCTS -->
   <section class="pb-20">
+
     <div class="max-w-7xl mx-auto px-6">
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <?php foreach ($products as $product): ?>
-          <?php
-            if ($search && stripos($product['name'], $search) === false) {
-              continue;
-            }
-          ?>
-          <a 
-            href="product-details.php?name=<?= urlencode($product['name']); ?>"
-            class="product-card bg-white rounded-2xl p-4 border border-[#F2F2F2] shadow-[7px_70px_70px_rgba(0,0,0,0.12)] transition-all duration-300 block"
-            data-category="<?= $product['category']; ?>"
-          >
+        <?php if (count($products) > 0): ?>
 
-            <!-- IMAGE -->
-            <div class="rounded-xl overflow-hidden p-2">
-              <img 
-                src="<?= $product['image']; ?>"
-                alt="<?= $product['name']; ?>"
-                class="w-full h-auto object-cover rounded-lg"
-              >
-            </div>
+          <?php foreach ($products as $product): ?>
 
-            <!-- INFO -->
-            <div class="mt-4">
-              <div class="flex justify-between items-start gap-3">
+            <div
+              class="bg-white rounded-[24px] border border-[#F0F0F0] p-5 shadow-sm hover:shadow-lg transition duration-300">
 
-                <div>
-                  <h3 class="text-sm font-medium text-[#1E1E1E]">
-                    <?= $product['name']; ?>
-                  </h3>
+              <!-- IMAGE -->
+              <a href="product-details.php?id=<?= $product['id']; ?>">
 
-                  <p class="text-xs text-gray-500 mt-1">
-                    <?= $product['category']; ?>
-                  </p>
+                <div class="bg-[#FAFAFA] rounded-[20px] h-[280px] flex items-center justify-center overflow-hidden">
+
+                  <img
+                    src="<?= htmlspecialchars($product['image']); ?>"
+                    alt="<?= htmlspecialchars($product['name']); ?>"
+                    class="max-h-[220px] max-w-[220px] object-contain hover:scale-105 transition duration-300">
+
                 </div>
 
-                <p class="text-sm font-medium text-[#1E1E1E] whitespace-nowrap">
-                  <?= $product['price']; ?>
-                </p>
+              </a>
+
+              <!-- INFO -->
+              <div class="mt-5">
+
+                <div class="flex justify-between items-start">
+
+                  <div>
+
+                    <h3 class="font-medium text-[#1E1E1E] hover:text-[#543A14] transition">
+
+                      <a href="product-details.php?id=<?= $product['id']; ?>">
+
+                        <?= htmlspecialchars($product['name']); ?>
+
+                      </a>
+
+                    </h3>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                      <?= htmlspecialchars($product['category']); ?>
+                    </p>
+
+                  </div>
+
+                  <p class="font-semibold text-[#1E1E1E]">
+                    $<?= number_format($product['price'], 2); ?>
+                  </p>
+
+                </div>
+
+                <div class="flex gap-3 mt-5">
+
+                  <a
+                    href="add-to-cart.php?id=<?= $product['id']; ?>"
+                    class="flex-1 border border-[#D6CFC7]
+                          rounded-full py-2 text-sm text-center
+                          bg-white text-[#543A14]
+                          hover:bg-[#543A14]
+                          hover:text-white
+                          hover:border-[#543A14]
+                          hover:-translate-y-0.5
+                          transition-all duration-300">
+
+                    Add To Cart
+
+                  </a>
+
+                  <a
+                    href="product-details.php?id=<?= $product['id']; ?>"
+                    class="flex-1 bg-black text-white
+                          rounded-full py-2 text-sm text-center
+                          hover:bg-[#FFF0DC]
+                          hover:text-[#543A14]
+                          hover:-translate-y-0.5
+                          transition-all duration-300">
+
+                    Buy Now
+
+                  </a>
+
+                </div>
 
               </div>
 
-              <!-- BUTTON -->
-              <div class="flex gap-2 mt-4">
-
-                <button class="flex-1 border border-gray-300 rounded-full py-2 text-xs hover:bg-gray-100 transition">
-                  Add to Cart
-                </button>
-
-                <button class="flex-1 bg-black text-white rounded-full py-2 text-xs hover:opacity-90 transition">
-                  Buy Now
-                </button>
-
-              </div>
             </div>
-          </a>
-        <?php endforeach; ?>
+
+          <?php endforeach; ?>
+
+        <?php else: ?>
+
+          <div class="col-span-3 text-center py-20">
+
+            <h2 class="text-xl text-gray-500">
+              No products match your search.
+            </h2>
+
+          </div>
+
+        <?php endif; ?>
 
       </div>
+
     </div>
+
   </section>
 
 </main>
-
-
-<script>
-  const buttons = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.product-card');
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const activeCategoryFromURL = urlParams.get('category') || "all";
-
-  function applyFilter(category) {
-
-    // FILTER CARD
-    cards.forEach(card => {
-      if (category === "all" || card.dataset.category === category) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
-      }
-    });
-
-    // RESET BUTTON STYLE
-    buttons.forEach(b => {
-      b.classList.remove('text-[#D9A86C]', 'font-medium');
-      b.classList.add('text-[#2D2D2D]');
-    });
-
-    // ACTIVE BUTTON
-    buttons.forEach(b => {
-      if (b.dataset.category === category) {
-        b.classList.add('text-[#D9A86C]', 'font-medium');
-      }
-    });
-  }
-
-  // LOAD PERTAMA
-  applyFilter(activeCategoryFromURL);
-
-  // CLICK EVENT
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const category = btn.dataset.category;
-
-      applyFilter(category);
-
-      // update URL
-      history.pushState(null, "", "?category=" + category);
-    });
-  });
-</script>
 
 <?php include 'components/footer.php'; ?>
