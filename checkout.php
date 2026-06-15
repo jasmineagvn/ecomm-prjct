@@ -224,10 +224,6 @@ $total = $subtotal + $tax;
                         id="qrisBox"
                         class="mt-6 text-center">
 
-                        <img
-                            src="assets/images/payment/qris.png"
-                            class="w-56 mx-auto">
-
                         <p class="text-sm text-gray-500 mt-3">
                             Scan QRIS after placing your order.
                         </p>
@@ -243,20 +239,6 @@ $total = $subtotal + $tax;
                             class="bg-[#FAFAFA]
                                    rounded-xl
                                    p-5">
-
-                            <h4 class="font-medium mb-2">
-                                Virtual Account
-                            </h4>
-
-                            <p>
-                                Bank BCA
-                            </p>
-
-                            <p
-                                class="font-bold text-xl mt-2">
-                                88991234567890
-                            </p>
-
                         </div>
 
                     </div>

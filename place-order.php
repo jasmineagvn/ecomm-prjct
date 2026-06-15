@@ -1,150 +1,129 @@
 <?php
 session_start();
-require_once 'config/database.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+require_once 'config/database.php';
+require_once 'midtrans-php-master/Midtrans.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
-$user_id = $_SESSION['user_id'];
+/* CONFIG MIDTRANS */
+\Midtrans\Config::$serverKey = 'Mid-server-MMUOp9wCG5Act3cU35CRUVzm';
+\Midtrans\Config::$isProduction = false;
+\Midtrans\Config::$isSanitized = true;
+\Midtrans\Config::$is3ds = true;
+
+/* USER INPUT */
+$userId = $_SESSION['user_id'];
 
 $fullname = $_POST['fullname'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $address = $_POST['address'];
-$payment_method = $_POST['payment_method'];
 
-/*
-|--------------------------------------------------------------------------
-| AMBIL ITEM CART YANG DICHECKOUT
-|--------------------------------------------------------------------------
-*/
-
+/* AMBIL CART */
 $query = "
 SELECT
     cart.product_id,
     cart.quantity,
+    products.name,
     products.price
 FROM cart
-JOIN products
-ON cart.product_id = products.id
+JOIN products ON cart.product_id = products.id
 WHERE cart.user_id = ?
 AND cart.selected = 1
 ";
 
 $stmt = $db->prepare($query);
-$stmt->execute([$user_id]);
+$stmt->execute([$userId]);
+$cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if (count($items) == 0) {
-    header("Location: cart.php");
-    exit();
+if (count($cartItems) == 0) {
+    die('Cart kosong');
 }
 
-/*
-|--------------------------------------------------------------------------
-| HITUNG TOTAL
-|--------------------------------------------------------------------------
-*/
-
+/* HITUNG TOTAL */
 $subtotal = 0;
+$itemDetails = [];
 
-foreach ($items as $item) {
+foreach ($cartItems as $item) {
     $subtotal += $item['price'] * $item['quantity'];
+
+    $itemDetails[] = [
+        'id' => $item['product_id'],
+        'price' => (int)$item['price'],
+        'quantity' => (int)$item['quantity'],
+        'name' => $item['name']
+    ];
 }
 
 $tax = $subtotal * 0.10;
 $total = $subtotal + $tax;
 
-/*
-|--------------------------------------------------------------------------
-| SIMPAN KE ORDERS
-|--------------------------------------------------------------------------
-*/
-
-$orderQuery = "
+/* SIMPAN ORDER */
+$stmt = $db->prepare("
 INSERT INTO orders
-(
-    user_id,
-    fullname,
-    email,
-    phone,
-    address,
-    total,
-    payment_method,
-    status
-)
+(user_id, fullname, email, phone, address, total, status)
 VALUES
-(
-    ?, ?, ?, ?, ?, ?, ?, 'pending'
-)
-";
+(?, ?, ?, ?, ?, ?, ?)
+");
 
-$stmtOrder = $db->prepare($orderQuery);
-
-$stmtOrder->execute([
-    $user_id,
+$stmt->execute([
+    $userId,
     $fullname,
     $email,
     $phone,
     $address,
     $total,
-    $payment_method
+    'pending'
 ]);
 
-$order_id = $db->lastInsertId();
+$orderId = $db->lastInsertId();
 
-/*
-|--------------------------------------------------------------------------
-| SIMPAN DETAIL ORDER
-|--------------------------------------------------------------------------
-*/
-
-foreach ($items as $item) {
-
-    $detailQuery = "
+/* SIMPAN ORDER ITEMS */
+foreach ($cartItems as $item) {
+    $stmt = $db->prepare("
     INSERT INTO order_items
-    (
-        order_id,
-        product_id,
-        quantity,
-        price
-    )
+    (order_id, product_id, quantity, price)
     VALUES
-    (
-        ?, ?, ?, ?
-    )
-    ";
+    (?, ?, ?, ?)
+    ");
 
-    $stmtDetail = $db->prepare($detailQuery);
-
-    $stmtDetail->execute([
-        $order_id,
+    $stmt->execute([
+        $orderId,
         $item['product_id'],
         $item['quantity'],
         $item['price']
     ]);
 }
 
-/*
-|--------------------------------------------------------------------------
-| HAPUS CART
-|--------------------------------------------------------------------------
-*/
+$stmt = $db->prepare("
+    DELETE FROM cart
+    WHERE user_id = ?
+    AND selected = 1
+");
 
-$delete = "
-DELETE FROM cart
-WHERE user_id = ?
-AND selected = 1
-";
+$stmt->execute([$userId]);
 
-$stmtDelete = $db->prepare($delete);
-$stmtDelete->execute([$user_id]);
+/* MIDTRANS SNAP PARAMS */
+$params = [
+    'transaction_details' => [
+        'order_id' => 'ORDER-' . $orderId,
+        'gross_amount' => round($total),
+    ],
+    'item_details' => $itemDetails,
+    'customer_details' => [
+        'first_name' => $fullname,
+        'email' => $email,
+        'phone' => $phone,
+    ]
+];
 
-header("Location: orders.php");
-exit();
+
+/* 🔥 SNAP TOKEN (INI YANG BENAR) */
+$snapToken = \Midtrans\Snap::getSnapToken($params);
+
+/* REDIRECT KE PAYMENT */
+header("Location: payment.php?token=" . urlencode($snapToken) . "&order_id=" . $orderId);
+exit;
+?>

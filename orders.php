@@ -103,7 +103,19 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
 
                         <div>
-                            <?= htmlspecialchars($order['payment_method']) ?>
+                           <?php
+                            $payment = $order['payment_method'];
+
+                            $paymentLabel = match ($payment) {
+                                'bank_transfer' => 'Bank Transfer',
+                                'qris' => 'QRIS',
+                                'gopay' => 'GoPay',
+                                'cod' => 'Cash on Delivery',
+                                default => ucfirst($payment)
+                            };
+                            ?>
+
+<?= $paymentLabel ?>
                         </div>
 
                         <div>

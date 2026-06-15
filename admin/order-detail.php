@@ -196,35 +196,24 @@ $orderItems = $itemStmt->fetchAll(PDO::FETCH_ASSOC);
 
         <form method="POST" class="flex gap-4">
 
-            <select
-                name="status"
-                class="border rounded-xl px-4 py-3 flex-1">
+           <select
+    name="status"
+    class="border rounded-xl px-4 py-3 flex-1">
 
-                <option value="pending" <?= $order['status']=='pending'?'selected':'' ?>>
-                    Pending
-                </option>
+    <?php if ($order['status'] == 'paid') : ?>
+        <option value="processing">Processing</option>
+        <option value="cancelled">Cancelled</option>
+    <?php endif; ?>
 
-                <option value="paid" <?= $order['status']=='paid'?'selected':'' ?>>
-                    Paid
-                </option>
+    <?php if ($order['status'] == 'processing') : ?>
+        <option value="shipped">Shipped</option>
+    <?php endif; ?>
 
-                <option value="processing" <?= $order['status']=='processing'?'selected':'' ?>>
-                    Processing
-                </option>
+    <?php if ($order['status'] == 'shipped') : ?>
+        <option value="completed">Completed</option>
+    <?php endif; ?>
 
-                <option value="shipped" <?= $order['status']=='shipped'?'selected':'' ?>>
-                    Shipped
-                </option>
-
-                <option value="completed" <?= $order['status']=='completed'?'selected':'' ?>>
-                    Completed
-                </option>
-
-                <option value="cancelled" <?= $order['status']=='cancelled'?'selected':'' ?>>
-                    Cancelled
-                </option>
-
-            </select>
+</select>
 
             <button
                 type="submit"
