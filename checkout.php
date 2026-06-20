@@ -11,32 +11,84 @@ if (!isset($_SESSION['user_id'])) {
 $database = new Database();
 $db = $database->getConnection();
 
-$query = "
-SELECT
-    cart.id,
-    cart.quantity,
-    products.id AS product_id,
-    products.name,
-    products.price,
-    products.image,
-    products.category
-FROM cart
-JOIN products
-ON cart.product_id = products.id
-WHERE cart.user_id = ?
-AND cart.selected = 1
-";
+$productId = $_GET['id'] ?? null;
 
-$stmt = $db->prepare($query);
-$stmt->execute([
-    $_SESSION['user_id']
-]);
+/*
+|--------------------------------------------------------------------------
+| BUY NOW
+|--------------------------------------------------------------------------
+*/
 
-$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if ($productId) {
 
-if (count($items) == 0) {
-    header("Location: cart.php");
-    exit();
+    $stmt = $db->prepare("
+        SELECT
+            id AS product_id,
+            name,
+            price,
+            image,
+            category
+        FROM products
+        WHERE id = ?
+    ");
+
+    $stmt->execute([$productId]);
+
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$product) {
+        header("Location: shop.php");
+        exit();
+    }
+
+    $items = [[
+        'product_id' => $product['product_id'],
+        'quantity'   => 1,
+        'name'       => $product['name'],
+        'price'      => $product['price'],
+        'image'      => $product['image'],
+        'category'   => $product['category']
+    ]];
+
+} else {
+
+    /*
+    |--------------------------------------------------------------------------
+    | CART CHECKOUT
+    |--------------------------------------------------------------------------
+    */
+
+    $query = "
+    SELECT
+        cart.id,
+        cart.quantity,
+        products.id AS product_id,
+        products.name,
+        products.price,
+        products.image,
+        products.category
+    FROM cart
+    JOIN products
+    ON cart.product_id = products.id
+    WHERE cart.user_id = ?
+    AND cart.selected = 1
+    ";
+
+    $stmt = $db->prepare($query);
+
+    $stmt->execute([
+        $_SESSION['user_id']
+    ]);
+
+    $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($items) == 0) {
+
+        header("Location: cart.php");
+        exit();
+
+    }
+
 }
 
 $subtotal = 0;
@@ -165,56 +217,77 @@ $total = $subtotal + $tax;
 
                     <div class="grid md:grid-cols-3 gap-4">
 
-                        <label
-                            class="border border-[#D6CFC7]
-                                   rounded-xl p-4 text-center
-                                   cursor-pointer hover:border-[#543A14]">
-
+                        <!-- QRIS -->
+                        <label class="cursor-pointer">
                             <input
                                 type="radio"
                                 name="payment_method"
                                 value="QRIS"
                                 checked
-                                class="hidden payment-radio">
+                                class="hidden payment-radio peer">
 
-                            <p class="font-medium">
-                                QRIS
-                            </p>
-
+                            <div class="
+                                border border-[#D6CFC7]
+                                rounded-xl
+                                p-4
+                                text-center
+                                transition-all duration-300
+                                peer-checked:bg-[#543A14]
+                                peer-checked:text-white
+                                peer-checked:border-[#543A14]
+                            ">
+                                <p class="font-medium">
+                                    QRIS
+                                </p>
+                            </div>
                         </label>
 
-                        <label
-                            class="border border-[#D6CFC7]
-                                   rounded-xl p-4 text-center
-                                   cursor-pointer hover:border-[#543A14]">
-
+                        <!-- VA -->
+                        <label class="cursor-pointer">
                             <input
                                 type="radio"
                                 name="payment_method"
                                 value="VA"
-                                class="hidden payment-radio">
+                                class="hidden payment-radio peer">
 
-                            <p class="font-medium">
-                                Virtual Account
-                            </p>
-
+                            <div class="
+                                border border-[#D6CFC7]
+                                rounded-xl
+                                p-4
+                                text-center
+                                transition-all duration-300
+                                peer-checked:bg-[#543A14]
+                                peer-checked:text-white
+                                peer-checked:border-[#543A14]
+                            ">
+                                <p class="font-medium">
+                                    Virtual Account
+                                </p>
+                            </div>
                         </label>
 
-                        <label
-                            class="border border-[#D6CFC7]
-                                   rounded-xl p-4 text-center
-                                   cursor-pointer hover:border-[#543A14]">
-
+                        <!-- COD -->
+                        <label class="cursor-pointer">
                             <input
                                 type="radio"
                                 name="payment_method"
                                 value="COD"
-                                class="hidden payment-radio">
+                                class="hidden payment-radio peer">
 
-                            <p class="font-medium">
-                                COD
-                            </p>
-
+                            <div class="
+                                border border-[#D6CFC7]
+                                rounded-xl
+                                p-4
+                                text-center
+                                transition-all duration-300
+                                peer-checked:bg-[#543A14]
+                                peer-checked:text-white
+                                peer-checked:border-[#543A14]
+                            ">
+                                <p class="font-medium">
+                                    COD
+                                </p>
+                            </div>
                         </label>
 
                     </div>
@@ -303,13 +376,9 @@ $total = $subtotal + $tax;
                                     class="flex justify-between mt-2 text-sm">
 
                                     <span>
-                                        $<?= number_format($item['price'], 2) ?>
+                                        Rp<?= number_format($item['price'], 2) ?>
                                         ×
                                         <?= $item['quantity'] ?>
-                                    </span>
-
-                                    <span>
-                                        $<?= number_format($itemTotal, 2) ?>
                                     </span>
 
                                 </div>
@@ -329,7 +398,7 @@ $total = $subtotal + $tax;
                             <span>Subtotal</span>
 
                             <span>
-                                $<?= number_format($subtotal, 2) ?>
+                                Rp<?= number_format($subtotal, 2) ?>
                             </span>
 
                         </div>
@@ -339,7 +408,7 @@ $total = $subtotal + $tax;
                             <span>Tax (10%)</span>
 
                             <span>
-                                $<?= number_format($tax, 2) ?>
+                                Rp<?= number_format($tax, 2) ?>
                             </span>
 
                         </div>
@@ -351,7 +420,7 @@ $total = $subtotal + $tax;
                             <span>Total</span>
 
                             <span>
-                                $<?= number_format($total, 2) ?>
+                                Rp<?= number_format($total, 2) ?>
                             </span>
 
                         </div>
@@ -382,43 +451,40 @@ $total = $subtotal + $tax;
 </main>
 
 <script>
-    const radios =
-        document.querySelectorAll(
-            '.payment-radio'
-        );
+    const radios = document.querySelectorAll('.payment-radio');
 
-    const qrisBox =
-        document.getElementById('qrisBox');
+const qrisBox = document.getElementById('qrisBox');
+const vaBox = document.getElementById('vaBox');
+const codBox = document.getElementById('codBox');
 
-    const vaBox =
-        document.getElementById('vaBox');
+function updatePaymentBox(value){
 
-    const codBox =
-        document.getElementById('codBox');
+    qrisBox.classList.add('hidden');
+    vaBox.classList.add('hidden');
+    codBox.classList.add('hidden');
 
-    radios.forEach(radio => {
+    if(value === 'QRIS'){
+        qrisBox.classList.remove('hidden');
+    }
 
-        radio.addEventListener('change', () => {
+    if(value === 'VA'){
+        vaBox.classList.remove('hidden');
+    }
 
-            qrisBox.classList.add('hidden');
-            vaBox.classList.add('hidden');
-            codBox.classList.add('hidden');
+    if(value === 'COD'){
+        codBox.classList.remove('hidden');
+    }
+}
 
-            if (radio.value === 'QRIS') {
-                qrisBox.classList.remove('hidden');
-            }
+radios.forEach(radio => {
 
-            if (radio.value === 'VA') {
-                vaBox.classList.remove('hidden');
-            }
-
-            if (radio.value === 'COD') {
-                codBox.classList.remove('hidden');
-            }
-
-        });
-
+    radio.addEventListener('change', function(){
+        updatePaymentBox(this.value);
     });
+
+});
+
+updatePaymentBox(document.querySelector('.payment-radio:checked').value);
 </script>
 
 <?php include 'components/footer.php'; ?>

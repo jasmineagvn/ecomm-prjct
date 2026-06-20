@@ -267,6 +267,49 @@ try {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(107, 74, 23, .12);
         }
+
+        .status {
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Pending */
+        .status-pending {
+            background: #FFF4D6;
+            color: #C78A00;
+        }
+
+        /* Paid */
+        .status-paid {
+            background: #DCFCE7;
+            color: #15803D;
+        }
+
+        /* Processing */
+        .status-processing {
+            background: #DBEAFE;
+            color: #1D4ED8;
+        }
+
+        /* Shipped */
+        .status-shipped {
+            background: #EDE9FE;
+            color: #7C3AED;
+        }
+
+        /* Completed */
+        .status-completed {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        /* Cancelled */
+        .status-cancelled {
+            background: #FCECEC;
+            color: #D84A4A;
+        }
     </style>
 
 </head>
@@ -554,52 +597,12 @@ try {
 
                                                         <td>
 
-                                                            <?php
+                                                            <span
+                                                                class="status status-<?= strtolower($order['status']); ?>">
 
-                                                            $status = strtolower($order['status']);
+                                                                <?= ucfirst($order['status']); ?>
 
-                                                            if ($status == 'pending') {
-                                                                echo '
-                                                                    <span
-                                                                    style="
-                                                                    background:#FFF3CD;
-                                                                    color:#856404;
-                                                                    padding:6px 14px;
-                                                                    border-radius:999px;
-                                                                    font-size:12px;
-                                                                    font-weight:600;
-                                                                    ">
-                                                                    Pending
-                                                                    </span>';
-                                                            } elseif ($status == 'completed') {
-                                                                echo '
-                                                                    <span
-                                                                    style="
-                                                                    background:#D4EDDA;
-                                                                    color:#155724;
-                                                                    padding:6px 14px;
-                                                                    border-radius:999px;
-                                                                    font-size:12px;
-                                                                    font-weight:600;
-                                                                    ">
-                                                                    Completed
-                                                                    </span>';
-                                                            } else {
-                                                                echo '
-                                                                    <span
-                                                                    style="
-                                                                    background:#F8D7DA;
-                                                                    color:#721C24;
-                                                                    padding:6px 14px;
-                                                                    border-radius:999px;
-                                                                    font-size:12px;
-                                                                    font-weight:600;
-                                                                    ">
-                                                                    ' . $order['status'] . '
-                                                                    </span>';
-                                                            }
-
-                                                            ?>
+                                                            </span>
 
                                                         </td>
 
@@ -744,7 +747,7 @@ try {
                                                     color:#543A14;
                                                     ">
 
-                                                $<?= number_format($product['price'], 2); ?>
+                                                Rp<?= number_format($product['price'], 2); ?>
 
                                             </td>
 

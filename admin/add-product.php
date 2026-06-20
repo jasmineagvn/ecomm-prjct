@@ -427,22 +427,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                             <div class="form-group">
 
-                                                <label>
-                                                    Category
-                                                </label>
+                                            <label>
+                                                Category
+                                            </label>
 
-                                                <input
-                                                    type="text"
-                                                    class="form-control category-readonly"
-                                                    value="<?= htmlspecialchars($selectedCategory) ?>"
-                                                    readonly>
+                                            <select
+                                                name="category"
+                                                required
+                                                class="form-control custom-select">
 
-                                                <input
-                                                    type="hidden"
-                                                    name="category"
-                                                    value="<?= htmlspecialchars($selectedCategory) ?>">
+                                                <option value="">
+                                                    Select Category
+                                                </option>
 
-                                            </div>
+                                                <option value="Living Room"
+                                                    <?= $selectedCategory == 'Living Room' ? 'selected' : '' ?>>
+                                                    Living Room
+                                                </option>
+
+                                                <option value="Bedroom"
+                                                    <?= $selectedCategory == 'Bedroom' ? 'selected' : '' ?>>
+                                                    Bedroom
+                                                </option>
+
+                                                <option value="Dining"
+                                                    <?= $selectedCategory == 'Dining Room' ? 'selected' : '' ?>>
+                                                    Dining
+                                                </option>
+
+                                                <option value="Workspace"
+                                                    <?= $selectedCategory == 'Office' ? 'selected' : '' ?>>
+                                                    Workspace
+                                                </option>
+                                            </select>
+
+                                        </div>
 
                                         </div>
 
@@ -451,7 +470,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <div class="form-group">
 
                                                 <label>
-                                                    Price ($)
+                                                    Price (Rp)
                                                 </label>
 
                                                 <input

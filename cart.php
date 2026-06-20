@@ -170,7 +170,7 @@ foreach ($cartItems as $item) {
 
                         <!-- PRICE -->
                         <div class="font-medium">
-                            $<?= number_format($item['price'], 2) ?>
+                            Rp<?= number_format($item['price'], 2) ?>
                         </div>
 
                         <!-- QUANTITY -->
@@ -210,7 +210,7 @@ foreach ($cartItems as $item) {
 
                             <span class="font-semibold">
 
-                                $<?= number_format($subtotal, 2) ?>
+                                Rp<?= number_format($subtotal, 2) ?>
 
                             </span>
 
@@ -265,7 +265,7 @@ foreach ($cartItems as $item) {
 
                     <span class="ml-6 text-[#543A14]">
 
-                        $<?= number_format($total, 2) ?>
+                        Rp<?= number_format($total, 2) ?>
 
                     </span>
 

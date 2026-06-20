@@ -131,7 +131,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="font-semibold text-[#543A14]">
 
-                            $<?= number_format($order['total'], 2) ?>
+                            Rp<?= number_format($order['total'], 2) ?>
 
                         </div>
 

@@ -419,7 +419,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <div class="form-group">
 
                                                 <label>
-                                                    Price ($)
+                                                    Price (Rp)
                                                 </label>
 
                                                 <input
@@ -463,7 +463,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                         <button
                                             type="submit"
-                                            class="btn domio-btn">
+                                            class="btn domio-btn mt-4">
 
                                             Update Product
 

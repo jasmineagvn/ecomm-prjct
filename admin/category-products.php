@@ -319,7 +319,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                             <div class="product-price">
 
-                                                $
+                                                Rp.
                                                 <?= number_format($product['price'], 2); ?>
 
                                             </div>

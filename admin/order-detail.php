@@ -179,7 +179,7 @@ $orderItems = $itemStmt->fetchAll(PDO::FETCH_ASSOC);
             <div>
                 <p class="text-gray-500">Total</p>
                 <p class="font-bold text-xl text-[#543A14]">
-                    $<?= number_format($order['total'],2); ?>
+                    Rp<?= number_format($order['total'],2); ?>
                 </p>
             </div>
 
@@ -198,22 +198,39 @@ $orderItems = $itemStmt->fetchAll(PDO::FETCH_ASSOC);
 
            <select
     name="status"
-    class="border rounded-xl px-4 py-3 flex-1">
+    style="padding-right:40px;"
+    class="w-full border rounded-xl px-4 py-3 pr-20">
 
-    <?php if ($order['status'] == 'paid') : ?>
-        <option value="processing">Processing</option>
-        <option value="cancelled">Cancelled</option>
-    <?php endif; ?>
+    <option value="pending"
+        <?= $order['status'] == 'pending' ? 'selected' : '' ?>>
+        Pending
+    </option>
 
-    <?php if ($order['status'] == 'processing') : ?>
-        <option value="shipped">Shipped</option>
-    <?php endif; ?>
+    <option value="paid"
+        <?= $order['status'] == 'paid' ? 'selected' : '' ?>>
+        Paid
+    </option>
 
-    <?php if ($order['status'] == 'shipped') : ?>
-        <option value="completed">Completed</option>
-    <?php endif; ?>
+    <option value="processing"
+        <?= $order['status'] == 'processing' ? 'selected' : '' ?>>
+        Processing
+    </option>
 
-</select>
+    <option value="shipped"
+        <?= $order['status'] == 'shipped' ? 'selected' : '' ?>>
+        Shipped
+    </option>
+
+    <option value="completed"
+        <?= $order['status'] == 'completed' ? 'selected' : '' ?>>
+        Completed
+    </option>
+
+    <option value="cancelled"
+        <?= $order['status'] == 'cancelled' ? 'selected' : '' ?>>
+        Cancelled
+    </option>
+    </select>
 
             <button
                 type="submit"
@@ -265,7 +282,7 @@ $orderItems = $itemStmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="text-right">
                     <p class="text-gray-500">Price</p>
                     <p class="font-semibold">
-                        $<?= number_format($item['price'],2); ?>
+                        Rp<?= number_format($item['price'],2); ?>
                     </p>
                 </div>
 

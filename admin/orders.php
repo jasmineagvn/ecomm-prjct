@@ -101,21 +101,37 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-weight: 600;
         }
 
+        /* Pending */
         .status-pending {
             background: #FFF4D6;
             color: #C78A00;
         }
 
+        /* Paid */
+        .status-paid {
+            background: #DCFCE7;
+            color: #15803D;
+        }
+
+        /* Processing */
         .status-processing {
-            background: #EAF3FF;
-            color: #2F73D9;
+            background: #DBEAFE;
+            color: #1D4ED8;
         }
 
+        /* Shipped */
+        .status-shipped {
+            background: #EDE9FE;
+            color: #7C3AED;
+        }
+
+        /* Completed */
         .status-completed {
-            background: #E8F8EC;
-            color: #1E9B4B;
+            background: #D1FAE5;
+            color: #065F46;
         }
 
+        /* Cancelled */
         .status-cancelled {
             background: #FCECEC;
             color: #D84A4A;
@@ -221,7 +237,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                             <td>
 
-                                                $
+                                                Rp
                                                 <?= number_format($order['total'], 2); ?>
 
                                             </td>

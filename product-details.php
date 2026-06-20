@@ -95,7 +95,7 @@ $relatedProducts = $stmtRelated->fetchAll(PDO::FETCH_ASSOC);
         </p>
 
         <h2 class="text-2xl font-bold mb-3">
-          $<?= number_format($selectedProduct['price'], 2) ?>
+          Rp<?= number_format($selectedProduct['price'], 2) ?>
         </h2>
 
         <!-- RATING -->
@@ -145,7 +145,7 @@ $relatedProducts = $stmtRelated->fetchAll(PDO::FETCH_ASSOC);
           </a>
 
           <a
-            href="#"
+            href="checkout.php?id=<?= $selectedProduct['id']; ?>"
             class="px-8 py-3
                   bg-black text-white
                   rounded-full
@@ -227,7 +227,7 @@ $relatedProducts = $stmtRelated->fetchAll(PDO::FETCH_ASSOC);
                 <p class="text-xs text-gray-400"><?= $p['category']; ?></p>
               </div>
 
-              <p class="text-sm font-medium">$<?= number_format($p['price'], 2); ?></p>
+              <p class="text-sm font-medium">Rp<?= number_format($p['price'], 2); ?></p>
             </div>
 
             <div class="flex gap-2 mt-4">
@@ -248,7 +248,7 @@ $relatedProducts = $stmtRelated->fetchAll(PDO::FETCH_ASSOC);
               </a>
 
               <a
-                href="product-details.php?id=<?= $p['id']; ?>"
+                href="checkout.php?id=<?= $p['id']; ?>"
                 class="flex-1 text-center
                       bg-black text-white
                       rounded-full py-2 text-sm
