@@ -112,8 +112,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="text-center mb-8">
 
                         <img
-                            src="../assets/logo.svg"
-                            class="w-28 mx-auto mb-5">
+                            src="../assets/images/logo/logo.svg"
+                            class="w-16 mx-auto mb-5">
 
                         <h1
                             class="text-3xl font-bold text-[#1E1E1E]">

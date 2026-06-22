@@ -193,7 +193,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </h3>
 
           <p class="text-[#555] mt-1">
-            $24.95
+            Rp345.000
           </p>
         </div>
 
@@ -211,7 +211,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </h3>
 
           <p class="text-[#555] mt-1">
-            $19.99
+            Rp233.000
           </p>
         </div>
 
@@ -229,7 +229,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </h3>
 
           <p class="text-[#555] mt-1">
-            $45.00
+            Rp576.000
           </p>
         </div>
 
@@ -247,7 +247,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </h3>
 
           <p class="text-[#555] mt-1">
-            $29.99
+            Rp125.000
           </p>
         </div>
 
@@ -328,7 +328,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
               <span class="text-[#1E1E1E] font-medium">
 
-                $<?= number_format($product['price'], 2) ?>
+                Rp<?= number_format($product['price'], 2) ?>
 
               </span>
 

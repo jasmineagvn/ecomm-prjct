@@ -243,6 +243,24 @@ function activeMenu($pages)
 
     </li>
 
+    <!-- SALES REPORT -->
+    <li class="nav-item <?= activeMenu([
+                            'sales-report.php',
+                            'sales-report-detail.php',
+                            'export-pdf.php',
+                            'export-excel.php'
+                        ]) ?>">
+
+        <a class="nav-link" href="sales-report.php">
+
+            <i class="fas fa-chart-line"></i>
+
+            <span>Sales Report</span>
+
+        </a>
+
+    </li>
+
     <hr class="sidebar-divider">
 
     <!-- LOGOUT -->

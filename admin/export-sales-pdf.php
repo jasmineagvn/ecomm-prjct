@@ -1,0 +1,320 @@
+<?php
+
+require_once '../vendor/autoload.php';
+require_once '../config/database.php';
+
+use Dompdf\Dompdf;
+
+$database = new Database();
+$db = $database->getConnection();
+
+$month = $_GET['month'] ?? date('m');
+$year  = $_GET['year'] ?? date('Y');
+
+/*
+|--------------------------------------------------------------------------
+| SUMMARY
+|--------------------------------------------------------------------------
+*/
+
+$totalOrders = $db->query("
+    SELECT COUNT(*)
+    FROM orders
+    WHERE MONTH(created_at) = $month
+    AND YEAR(created_at) = $year
+")->fetchColumn();
+
+$totalRevenue = $db->query("
+    SELECT COALESCE(SUM(total),0)
+    FROM orders
+    WHERE MONTH(created_at) = $month
+    AND YEAR(created_at) = $year
+")->fetchColumn();
+
+$totalProducts = $db->query("
+    SELECT COALESCE(SUM(oi.quantity),0)
+    FROM order_items oi
+    JOIN orders o ON oi.order_id = o.id
+    WHERE MONTH(o.created_at) = $month
+    AND YEAR(o.created_at) = $year
+")->fetchColumn();
+
+$bestSeller = $db->query("
+    SELECT p.name
+    FROM order_items oi
+    JOIN products p ON oi.product_id = p.id
+    JOIN orders o ON oi.order_id = o.id
+    WHERE MONTH(o.created_at) = $month
+    AND YEAR(o.created_at) = $year
+    GROUP BY p.id
+    ORDER BY SUM(oi.quantity) DESC
+    LIMIT 1
+")->fetchColumn();
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCT DATA
+|--------------------------------------------------------------------------
+*/
+
+$stmt = $db->query("
+    SELECT
+        p.name,
+        p.category,
+        SUM(oi.quantity) total_sold,
+        SUM(oi.quantity * oi.price) revenue
+    FROM order_items oi
+    JOIN products p
+        ON oi.product_id = p.id
+    JOIN orders o
+        ON oi.order_id = o.id
+    WHERE MONTH(o.created_at) = $month
+    AND YEAR(o.created_at) = $year
+    GROUP BY p.id
+    ORDER BY total_sold DESC
+");
+
+$data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+/*
+|--------------------------------------------------------------------------
+| PDF CONTENT
+|--------------------------------------------------------------------------
+*/
+
+$html = '
+
+<style>
+
+body{
+    font-family: DejaVu Sans;
+    font-size:12px;
+    color:#333;
+}
+
+.header{
+    text-align:center;
+    border-bottom:3px solid #543A14;
+    padding-bottom:15px;
+    margin-bottom:30px;
+}
+
+.company{
+    text-align:center;
+    width:100%;
+}
+
+.company h1{
+    margin:0;
+    color:#543A14;
+    font-size:24px;
+}
+
+.company p{
+    margin:4px 0;
+}
+
+.report-title{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.summary{
+    width:100%;
+    border-collapse:collapse;
+    margin-bottom:25px;
+}
+
+.summary td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+
+.summary-label{
+    background:#FFF0DC;
+    font-weight:bold;
+    width:35%;
+}
+
+.product-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.product-table th{
+    background:#543A14;
+    color:white;
+    padding:10px;
+    text-align:center;
+}
+
+.product-table td{
+    border:1px solid #ddd;
+    padding:8px;
+}
+
+.footer{
+    margin-top:40px;
+    text-align:center;
+    color:#888;
+    font-size:11px;
+}
+
+</style>
+
+<div class="header">
+
+    <div class="company">
+
+        <h1>
+            DOMIO FURNITURE
+        </h1>
+
+        <p>
+            E-Commerce Furniture Management System
+        </p>
+
+        <p>
+            Sales Performance Report
+        </p>
+
+    </div>
+
+</div>
+
+<div class="report-title">
+
+    <h2>SALES REPORT</h2>
+
+    <p>
+        Period :
+        '.date('F', mktime(0,0,0,$month,1)).' '.$year.'
+    </p>
+
+</div>
+
+<table class="summary">
+
+    <tr>
+
+        <td class="summary-label">
+            Total Orders
+        </td>
+
+        <td>
+            '.$totalOrders.'
+        </td>
+
+    </tr>
+
+    <tr>
+
+        <td class="summary-label">
+            Products Sold
+        </td>
+
+        <td>
+            '.$totalProducts.'
+        </td>
+
+    </tr>
+
+    <tr>
+
+        <td class="summary-label">
+            Total Revenue
+        </td>
+
+        <td>
+            Rp '.number_format($totalRevenue,0,',','.').'
+        </td>
+
+    </tr>
+
+    <tr>
+
+        <td class="summary-label">
+            Best Seller Product
+        </td>
+
+        <td>
+            '.($bestSeller ?: '-').'
+        </td>
+
+    </tr>
+
+</table>
+
+<h3>Top Selling Products</h3>
+
+<table class="product-table">
+
+<tr>
+
+    <th>No</th>
+    <th>Product</th>
+    <th>Category</th>
+    <th>Qty Sold</th>
+    <th>Revenue</th>
+
+</tr>
+
+';
+
+$no = 1;
+
+foreach($data as $row){
+
+    $html .= '
+
+    <tr>
+
+        <td align="center">'.$no++.'</td>
+
+        <td>'.$row['name'].'</td>
+
+        <td>'.$row['category'].'</td>
+
+        <td align="center">'.$row['total_sold'].'</td>
+
+        <td>
+            Rp '.number_format(
+                $row['revenue'],
+                0,
+                ',',
+                '.'
+            ).'
+        </td>
+
+    </tr>
+
+    ';
+}
+
+$html .= '
+
+</table>
+
+<div class="footer">
+
+    Generated by Domio Admin System<br>
+    Generated Date : '.date('d F Y H:i').'
+
+</div>
+
+';
+
+$dompdf = new Dompdf();
+
+$dompdf->loadHtml($html);
+
+$dompdf->setPaper('A4', 'portrait');
+
+$dompdf->render();
+
+$dompdf->stream(
+    'Domio-Sales-Report.pdf',
+    [
+        'Attachment' => true
+    ]
+);
