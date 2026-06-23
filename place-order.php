@@ -22,25 +22,60 @@ $phone = $_POST['phone'];
 $address = $_POST['address'];
 $paymentMethod = $_POST['payment_method'];
 
-/* AMBIL CART */
-$query = "
-SELECT
-    cart.product_id,
-    cart.quantity,
-    products.name,
-    products.price
-FROM cart
-JOIN products ON cart.product_id = products.id
-WHERE cart.user_id = ?
-AND cart.selected = 1
-";
+$buyNow = $_POST['buy_now'] ?? 0;
 
-$stmt = $db->prepare($query);
-$stmt->execute([$userId]);
-$cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if ($buyNow == 1) {
 
-if (count($cartItems) == 0) {
-    die('Cart kosong');
+    $productId = $_POST['product_id'];
+    $quantity = $_POST['quantity'] ?? 1;
+
+    $stmt = $db->prepare("
+        SELECT
+            id AS product_id,
+            name,
+            price
+        FROM products
+        WHERE id = ?
+    ");
+
+    $stmt->execute([$productId]);
+
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$product) {
+        die('Produk tidak ditemukan');
+    }
+
+    $cartItems = [[
+        'product_id' => $product['product_id'],
+        'quantity' => $quantity,
+        'name' => $product['name'],
+        'price' => $product['price']
+    ]];
+
+} else {
+
+    $query = "
+    SELECT
+        cart.product_id,
+        cart.quantity,
+        products.name,
+        products.price
+    FROM cart
+    JOIN products
+    ON cart.product_id = products.id
+    WHERE cart.user_id = ?
+    AND cart.selected = 1
+    ";
+
+    $stmt = $db->prepare($query);
+    $stmt->execute([$userId]);
+
+    $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($cartItems) == 0) {
+        die('Cart kosong');
+    }
 }
 
 /* HITUNG TOTAL */
@@ -127,13 +162,16 @@ foreach ($cartItems as $item) {
     ]);
 }
 
-$stmt = $db->prepare("
-    DELETE FROM cart
-    WHERE user_id = ?
-    AND selected = 1
-");
+if ($buyNow != 1) {
 
-$stmt->execute([$userId]);
+    $stmt = $db->prepare("
+        DELETE FROM cart
+        WHERE user_id = ?
+        AND selected = 1
+    ");
+
+    $stmt->execute([$userId]);
+}
 
 if ($paymentMethod == 'COD') {
 ?>

@@ -343,7 +343,9 @@ $bestProducts = $db->query("
 
                 <div class="report-card mb-4">
 
-                    <div class="row align-items-center">
+                    <form method="GET">
+
+                        <div class="row align-items-center">
 
                         <div class="col-md-4">
 
@@ -540,6 +542,10 @@ $bestProducts = $db->query("
                     </div>
 
                 </div>
+
+                        </div>
+
+                 </form>
 
             </div>
 

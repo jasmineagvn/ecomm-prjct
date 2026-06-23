@@ -12,6 +12,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 $productId = $_GET['id'] ?? null;
+$quantity = $_GET['qty'] ?? 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,7 @@ if ($productId) {
 
     $items = [[
         'product_id' => $product['product_id'],
-        'quantity'   => 1,
+        'quantity' => $quantity,
         'name'       => $product['name'],
         'price'      => $product['price'],
         'image'      => $product['image'],
@@ -135,6 +136,12 @@ $total = $subtotal + $tax;
             action="place-order.php"
             method="POST"
             class="grid md:grid-cols-3 gap-8 mt-6">
+
+            <?php if ($productId): ?>
+                <input type="hidden" name="buy_now" value="1">
+                <input type="hidden" name="product_id" value="<?= $productId ?>">
+                <input type="hidden" name="quantity" value="1">
+            <?php endif; ?>
 
             <!-- LEFT -->
             <div class="md:col-span-2 space-y-6">
