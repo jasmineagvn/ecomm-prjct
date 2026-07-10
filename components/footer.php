@@ -1,163 +1,108 @@
-<footer class="bg-[#543A14] mt-14">
+<footer class="bg-[#F4E4F5]">
 
-  <!-- Main Footer -->
-  <div class="max-w-6xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between gap-12">
+    <div class="max-w-7xl mx-auto px-8 py-14">
 
-    <!-- Left Section -->
-    <div class="flex flex-col gap-4">
+        <!-- Logo -->
+        <div class="flex justify-center">
 
-      <!-- Logo -->
-      <img
-        src="<?= $base_url ?>assets/images/logo/logo-white.svg"
-        alt="Domio Logo"
-        class="w-28">
+            <a
+                href="<?= $base_url ?>index.php"
+                class="flex items-center gap-3">
 
-      <!-- Description -->
-      <p class="text-white/90 text-base leading-relaxed max-w-md">
+                <img
+                    src="assets/images/logo/logo.png"
+                    alt="Logo"
+                    class="w-10 h-10 object-contain">
 
-        Crafting timeless comfort for every corner of your home.
-        Your journey to a modern and stylish living starts here.
+                <span
+                    class="text-[20px] font-bold text-[#00204A]">
 
-      </p>
+                    Posyandu Lavender
+
+                </span>
+
+            </a>
+
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-center items-center gap-8 mt-10">
+
+            <a
+                href="<?= $base_url ?>index.php"
+                class="text-[#00204A] hover:text-[#875988] transition">
+
+                Beranda
+
+            </a>
+
+            <a
+                href="<?= $base_url ?>prediksi.php"
+                class="text-[#00204A] hover:text-[#875988] transition">
+
+                Cek Prediksi
+
+            </a>
+
+            <a
+                href="<?= $base_url ?>analisis.php"
+                class="flex items-center gap-3
+                       bg-[#875988]
+                       hover:bg-[#744A75]
+                       text-white
+                       rounded-full
+                       px-6
+                       py-3
+                       transition">
+
+                Mulai Cek Prediksi
+
+                <div
+                    class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 5l7 7-7 7"/>
+
+                    </svg>
+
+                </div>
+
+            </a>
+
+        </div>
 
     </div>
 
-    <!-- Right Section -->
-    <div class="flex flex-col sm:flex-row gap-12">
+    <!-- Copyright -->
+    <div class="border-t border-[#875988]/30">
 
-      <!-- Shop By Room -->
-      <div class="flex flex-col gap-4">
+        <div class="max-w-7xl mx-auto py-8 text-center">
 
-        <h2 class="text-white font-semibold">
+            <p class="text-[#1F1F1F] text-[16px]">
 
-          Shop By Room
+                © 2026 Sistem Prediksi Kehadiran Posyandu Lavender
 
-        </h2>
+            </p>
 
-        <ul class="flex flex-col gap-2 text-sm">
+            <p class="text-[#1F1F1F] text-[16px]">
 
-          <li>
-            <a href="shop.php?category=living-room"
-              class="text-white/90 hover:text-[#FFF0DC] transition">
-              Living Room
-            </a>
-          </li>
+                Dikembangkan untuk mendukung peningkatan layanan kesehatan ibu
+                <br>
+                dan balita berbasis data.
 
-          <li>
-            <a href="shop.php?category=bedroom"
-              class="text-white/90 hover:text-[#FFF0DC] transition">
-              Bedroom
-            </a>
-          </li>
+            </p>
 
-          <li>
-            <a href="shop.php?category=workspace"
-              class="text-white/90 hover:text-[#FFF0DC] transition">
-              Workspace
-            </a>
-          </li>
-
-          <li>
-            <a href="shop.php?category=dining"
-              class="text-white/90 hover:text-[#FFF0DC] transition">
-              Dining Room
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-
-      <!-- Follow Us -->
-      <div class="flex flex-col gap-4">
-
-        <h2 class="text-white font-semibold">
-          Follow Us
-        </h2>
-
-        <ul class="flex flex-col gap-2 text-sm">
-
-          <li>
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
-
-              <img
-                src="<?= $base_url ?>assets/icons/instagram.svg"
-                class="w-4 h-4">
-
-              Instagram
-
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://www.whatsapp.com"
-              target="_blank"
-              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
-
-              <img
-                src="<?= $base_url ?>assets/icons/whatsapp.svg"
-                class="w-4 h-4">
-
-              WhatsApp
-
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
-
-              <img
-                src="<?= $base_url ?>assets/icons/twitter.svg"
-                class="w-4 h-4">
-
-              Twitter
-
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://www.linkedin.com"
-              target="_blank"
-              class="flex items-center gap-2 text-white/90 hover:text-[#FFF0DC] transition">
-
-              <img
-                src="<?= $base_url ?>assets/icons/linkedin.svg"
-                class="w-4 h-4">
-
-              LinkedIn
-
-            </a>
-          </li>
-
-        </ul>
-
-      </div>
-      
-    </div>
-
-  </div>
-
-  <!-- Bottom Copyright -->
-  <div class="border-t border-white/20">
-
-    <div class="max-w-6xl mx-auto px-8 py-4">
-
-      <p class="text-white/70 text-xs">
-
-        ©2026 Domio Furniture. All rights reserved.
-
-      </p>
+        </div>
 
     </div>
-
-  </div>
 
 </footer>

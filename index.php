@@ -3,386 +3,358 @@
 session_start();
 
 include 'components/header.php';
-require_once 'config/database.php';
-
-$database = new Database();
-$db = $database->getConnection();
-
-/*
-|--------------------------------------------------------------------------
-| EXPLORE COLLECTION PRODUCTS
-|--------------------------------------------------------------------------
-*/
-
-$query = "
-SELECT *
-FROM products
-ORDER BY id DESC
-LIMIT 6
-";
-
-$stmt = $db->prepare($query);
-$stmt->execute();
-
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
-<main class="">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.umd.js"></script>
 
   <!-- Start : Hero -->
-  <div class="hero relative w-full overflow-hidden">
-    <img
-      src="assets/images/background/bg-home.svg"
-      alt=""
-      class="w-full h-auto object-cover block">
-    <!-- Content -->
-    <div class="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6">
+<section class="bg-white pt-16 pb-24">
+    <div class="max-w-7xl mx-auto px-8">
 
-      <!-- Small Text -->
-      <p class="text-sm md:text-base font-normal mb-2">
-        Domio Exclusive
-      </p>
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-      <!-- Main Heading -->
-      <h1 class="text-5xl md:text-[72px] font-bold leading-tight">
-        The Art of Living
-      </h1>
+            <!-- Left Content -->
+            <div>
 
-      <!-- Subtitle -->
-      <p class="text-base md:text-lg mt-3 mb-8">
-        Elevating your home with thoughtful artistry.
-      </p>
+                <h1 class="font-bold
+           text-[50px]
+           text-[#1F1F1F]
+           leading-[56px]
+           tracking-[-0.7px]
+           w-[700px]">
 
-      <!-- Button -->
-      <a
-        href="shop.php"
-        class="bg-[#FFF0DC] text-[#543A14] px-10 py-3 rounded-full text-base font-medium hover:bg-[#f5dfbc] transition">
-        Explore Now
-      </a>
-    </div>
-  </div>
-  <!-- End : Start -->
+                    Pantau Kehadiran,<br>
+                    Pastikan Tumbuh Kembang<br>
+                    Buah Hati Terjaga.
 
-  <!-- Start : Our Story -->
-  <section class="max-w-6xl mx-auto px-4 lg:px-0 py-20">
-    <div class="grid grid-cols-1 lg:grid-cols-2 bg-white gap-10 items-center">
+                </h1>
 
-      <!-- Left Image -->
-      <div>
-        <img
-          src="/ecomm-prjct/assets/images/home/our-story.svg"
-          alt="Our Story"
-          class="w-full h-[335px] object-cover rounded-md">
-      </div>
+                <p class="mt-8 text-[#555555] text[16px] font-medium leading-8 max-w-xl">
 
-      <!-- Right Content -->
-      <div class="flex flex-col justify-between h-full">
+                    Gunakan sistem prediksi untuk melihat estimasi tingkat
+                    kunjungan di Posyandu Lavender. Masukkan data pendukung
+                    untuk mendapatkan hasil analisis yang membantu
+                    mengoptimalkan pelayanan kesehatan bagi buah hati.
 
-        <div>
-          <h2 class="text-4xl font-semibold text-[#1E1E1E] mb-5">
-            Our Story
-          </h2>
+                </p>
 
-          <p class="text-[#5C5C5C] leading-relaxed text-base mb-6 max-w-xl">
-            Founded in 2019, Domio has been dedicated to bringing high-quality,
-            sustainable furniture to every home. We believe that a well-designed
-            space can inspire better living and lasting memories.
-          </p>
+                <!-- Button -->
+                <a href="prediksi.php"
+                    class="inline-flex items-center mt-10">
 
-          <a
-            href="about.php"
-            class="text-[#D89A47] font-bold font-medium hover:underline">
-            Read More
-          </a>
-        </div>
+                    <div
+                        class="bg-[#875988]
+                               hover:bg-[#734874]
+                               text-white
+                               rounded-full
+                               pl-7
+                               pr-5
+                               py-4
+                               flex
+                               items-center
+                               gap-5
+                               transition">
 
-        <!-- Stats -->
-        <div class="grid grid-cols-3 gap-12 mt-12">
+                        <span class="font-medium">
 
-          <div>
-            <h3 id="count1" class="text-5xl font-bold text-[#1E1E1E]">
-              0
-            </h3>
-            <p class="text-[#543A14] mt-2 leading-snug">
-              Curated <br> Products
-            </p>
-          </div>
+                            Mulai Cek Prediksi
 
-          <div>
-            <h3 id="count2" class="text-5xl font-bold text-[#1E1E1E]">
-              0
-            </h3>
-            <p class="text-[#543A14] mt-2 leading-snug">
-              Happy <br> Homes
-            </p>
-          </div>
+                        </span>
 
-          <div>
-            <h3 id="count3" class="text-5xl font-bold text-[#1E1E1E]">
-              0
-            </h3>
-            <p class="text-[#543A14] mt-2 leading-snug">
-              Years <br> of Craft
-            </p>
-          </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-5 h-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9 5l7 7-7 7"/>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- Right Image -->
+            <div class="flex justify-end">
+
+                <img
+                    src="assets/images/hero/hero-image.png"
+                    class="w-[458px] h-[494px] rounded-[35px] object-cover">
+
+            </div>
 
         </div>
 
-      </div>
     </div>
-  </section>
-  <!-- End : Our Story -->
+</section>
+<!-- End : Hero -->
+
+  <!-- Start : Statistics -->
+<section class="bg-white pb-24">
+
+    <div class="max-w-7xl mx-auto px-8 mt-20 mb-15">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            <!-- Card 1 -->
+            <div
+                class="bg-white rounded-[30px] shadow-[0_10px_35px_rgba(0,0,0,0.08)] p-8 h-[185px] flex flex-col justify-between">
+
+                <div class="flex items-center gap-5">
+
+                    <img
+                        src="assets/icons/baby.png"
+                        alt="Total Balita"
+                        class="w-16 h-16">
+
+                    <h3
+                        class="text-[18px] font-semibold text-[#1F1F1F]">
+
+                        Total Balita:
+
+                    </h3>
+
+                </div>
+
+                <p
+                    class="text-right text-[52px] font-bold text-[#875988]">
+
+                    120
+
+                </p>
+
+            </div>
+
+            <!-- Card 2 -->
+            <div
+                class="bg-white rounded-[30px] shadow-[0_10px_35px_rgba(0,0,0,0.08)] p-8 h-[185px] flex flex-col justify-between">
+
+                <div class="flex items-center gap-5">
+
+                    <img
+                        src="assets/icons/kalender.png"
+                        alt="Presentase Kehadiran"
+                        class="w-16 h-16">
+
+                    <h3
+                        class="text-[18px] font-semibold text-[#1F1F1F]">
+
+                        Presentase Kehadiran:
+
+                    </h3>
+
+                </div>
+
+                <p
+                    class="text-right text-[52px] font-bold text-[#875988]">
+
+                    85%
+
+                </p>
+
+            </div>
+
+            <!-- Card 3 -->
+            <div
+                class="bg-white rounded-[30px] shadow-[0_10px_35px_rgba(0,0,0,0.08)] p-8 h-[185px] flex flex-col justify-between">
+
+                <div class="flex items-center gap-5">
+
+                    <img
+                        src="assets/icons/statistik.png"
+                        alt="Prediksi Tidak Hadir"
+                        class="w-16 h-16">
+
+                    <h3
+                        class="text-[18px] font-semibold text-[#1F1F1F]">
+
+                        Prediksi Tidak Hadir:
+
+                    </h3>
+
+                </div>
+
+                <p
+                    class="text-right text-[52px] font-bold text-[#875988]">
+
+                    15%
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- End : Statistics -->
 
 
-  <!-- CountUp JS -->
-  <script>
-    window.addEventListener("load", () => {
-      const count1 = new countUp.CountUp('count1', 500, {
-        suffix: '+',
-        duration: 2
-      });
+  <!-- Start : Layanan -->
+<section class="bg-[#F2F2F2] pt-16 pb-16 rounded-t-[18px]">
 
-      const count2 = new countUp.CountUp('count2', 15, {
-        suffix: 'k',
-        duration: 2
-      });
+    <div class="max-w-7xl mx-auto px-8">
 
-      const count3 = new countUp.CountUp('count3', 7, {
-        duration: 2
-      });
+        <!-- Heading -->
+        <h2 class="text-center
+                   text-[30px]
+                   font-bold
+                   text-[#1F1F1F]
+                   mb-16">
 
-      count1.start();
-      count2.start();
-      count3.start();
-    });
-  </script>
+            Layanan Sistem Prediksi Posyandu
 
-  <!-- Start : Best Seller Product -->
-  <section class="w-full bg-[#FFF8EE] mt-10 lg:mt-16 py-14">
-
-    <!-- Container -->
-    <div class="max-w-7xl mx-auto px-8 md:px-12">
-
-      <!-- Heading -->
-      <div class="mb-10">
-        <h2 class="text-3xl md:text-[42px] font-semibold text-[#1E1E1E] mb-2">
-          Our Best Seller Product
         </h2>
 
-        <p class="text-[#543A14] text-sm md:text-base font-medium mt-4">
-          Discover the most loved pieces that define modern comfort and timeless style in every home.
-        </p>
-      </div>
+        <!-- Grid -->
+        <div class="grid grid-cols-12 gap-6">
 
-      <!-- Product Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <!-- Card 1 -->
+            <div
+                class="col-span-12 lg:col-span-7
+                       bg-white
+                       rounded-[25px]
+                       p-10
+                       min-h-[230px]
+                       flex flex-col justify-between">
 
-        <!-- Item 1 -->
-        <div class="text-center group">
-          <div class="overflow-hidden rounded-2xl bg-white">
-            <img
-              src="assets/images/home/best-product-1.svg"
-              alt="Oda Ceramic Vase"
-              class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300">
-          </div>
+                <div>
 
-          <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
-            Oda Ceramic Vase
-          </h3>
+                    <h3 class="text-[32px] font-bold text-[#1F1F1F] mb-8">
 
-          <p class="text-[#555] mt-1">
-            Rp345.000
-          </p>
-        </div>
+                        Analisis Prediksi Kehadiran
 
-        <!-- Item 2 -->
-        <div class="text-center group">
-          <div class="overflow-hidden rounded-2xl bg-white">
-            <img
-              src="assets/images/home/best-product-2.svg"
-              alt="Lune Linen Pillow"
-              class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300">
-          </div>
+                    </h3>
 
-          <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
-            Lune Linen Pillow
-          </h3>
+                    <p class="text-[16px]
+                              leading-8
+                              text-[#4B4B4B]
+                              max-w-[520px]">
 
-          <p class="text-[#555] mt-1">
-            Rp233.000
-          </p>
-        </div>
+                        Pantau dan prediksi tingkat kunjungan ibu dan anak
+                        setiap bulannya dengan teknologi analisis data untuk
+                        memastikan pelayanan yang lebih siap.
 
-        <!-- Item 3 -->
-        <div class="text-center group">
-          <div class="overflow-hidden rounded-2xl bg-white">
-            <img
-              src="assets/images/home/best-product-3.svg"
-              alt="Sora Table Lamp"
-              class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300">
-          </div>
+                    </p>
 
-          <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
-            Sora Table Lamp
-          </h3>
-
-          <p class="text-[#555] mt-1">
-            Rp576.000
-          </p>
-        </div>
-
-        <!-- Item 4 -->
-        <div class="text-center group">
-          <div class="overflow-hidden rounded-2xl bg-white">
-            <img
-              src="assets/images/home/best-product-4.svg"
-              alt="Teak Serving Tray"
-              class="w-full h-[180px] md:h-[200px] object-cover group-hover:scale-105 transition duration-300">
-          </div>
-
-          <h3 class="mt-4 text-base md:text-lg font-medium text-[#1E1E1E]">
-            Teak Serving Tray
-          </h3>
-
-          <p class="text-[#555] mt-1">
-            Rp125.000
-          </p>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-  <!-- End : Best Seller Product -->
-
-
-
-  <!-- Start : Explore Collections -->
-  <section class="max-w-6xl mx-auto mt-16 lg:mt-24 px-4">
-
-    <!-- Title -->
-    <div class="text-center">
-      <h2 class="text-3xl md:text-[42px] font-semibold text-[#1E1E1E]">
-        Explore Our Collections
-      </h2>
-    </div>
-
-    <!-- Category -->
-    <div class="flex flex-wrap justify-center gap-3 mt-6 mb-10">
-
-      <button class="px-7 py-2 rounded-full bg-black text-white text-sm">
-        All
-      </button>
-
-      <button class="px-6 py-2 rounded-full border border-black text-sm">
-        Living Room
-      </button>
-
-      <button class="px-6 py-2 rounded-full border border-black text-sm">
-        Bedroom
-      </button>
-
-      <button class="px-6 py-2 rounded-full border border-black text-sm">
-        Workspace
-      </button>
-
-      <button class="px-6 py-2 rounded-full border border-black text-sm">
-        Dining
-      </button>
-
-    </div>
-
-    <!-- Product Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-
-      <?php foreach ($products as $product): ?>
-
-        <div class="bg-white rounded-3xl border border-[#EEEEEE] p-4 hover:shadow-xl transition duration-300">
-
-          <!-- IMAGE -->
-          <a href="product-details.php?id=<?= $product['id'] ?>">
-
-            <div class="bg-[#FAFAFA] rounded-3xl overflow-hidden">
-
-              <img
-                src="<?= htmlspecialchars($product['image']) ?>"
-                alt="<?= htmlspecialchars($product['name']) ?>"
-                class="w-full h-[240px] object-cover transition duration-300 hover:scale-105">
+                </div>
 
             </div>
 
-          </a>
+            <!-- Card 2 -->
+            <div
+                class="col-span-12 lg:col-span-5
+                       bg-white
+                       rounded-[25px]
+                       p-10
+                       min-h-[230px]
+                       flex flex-col justify-between">
 
-          <!-- CONTENT -->
-          <div class="pt-4">
+                <div>
 
-            <div class="flex justify-between items-start gap-3">
+                    <h3 class="text-[32px] font-bold text-[#1F1F1F] mb-8">
 
-              <h3 class="text-lg font-medium text-[#1E1E1E]">
+                        Data Terpadu
 
-                <?= htmlspecialchars($product['name']) ?>
+                    </h3>
 
-              </h3>
+                    <p class="text-[16px]
+                              leading-8
+                              text-[#4B4B4B]">
 
-              <span class="text-[#1E1E1E] font-medium">
+                        Pengelolaan metadata dan profil kesehatan anak
+                        secara digital, memudahkan pencarian riwayat
+                        kunjungan tanpa tumpukan kertas.
 
-                Rp<?= number_format($product['price'], 2) ?>
+                    </p>
 
-              </span>
-
-            </div>
-
-            <p class="text-sm text-[#777] mt-1">
-
-              <?= htmlspecialchars($product['category']) ?>
-
-            </p>
-
-            <!-- BUTTON -->
-            <div class="flex gap-3 mt-5">
-
-              <a
-                href="add-to-cart.php?id=<?= $product['id']; ?>"
-                class="flex-1 border border-[#D6CFC7]
-                      rounded-full py-2 text-sm text-center
-                      bg-white text-[#543A14]
-                      hover:bg-[#543A14]
-                      hover:text-white
-                      hover:border-[#543A14]
-                      hover:-translate-y-0.5
-                      transition-all duration-300">
-
-                Add To Cart
-
-              </a>
-
-              <a
-                href="product-details.php?id=<?= $product['id']; ?>"
-                class="flex-1 bg-black text-white
-                      rounded-full py-2 text-sm text-center
-                      hover:bg-[#FFF0DC]
-                      hover:text-[#543A14]
-                      hover:-translate-y-0.5
-                      transition-all duration-300">
-
-                Buy Now
-
-              </a>
+                </div>
 
             </div>
 
-          </div>
+            <!-- Card 3 -->
+            <div
+                class="col-span-12 lg:col-span-4
+                       bg-white
+                       rounded-[25px]
+                       p-10
+                       min-h-[230px]
+                       flex flex-col justify-between">
+
+                <div>
+
+                    <h3 class="text-[32px] font-bold text-[#1F1F1F] mb-8">
+
+                        Pantau<br>
+                        Tumbuh Kembang
+
+                    </h3>
+
+                    <p class="text-[16px]
+                              leading-8
+                              text-[#4B4B4B]">
+
+                        Membantu memantau konsistensi kehadiran yang
+                        berdampak langsung pada pemantauan gizi dan
+                        perkembangan rutin balita.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Card 4 -->
+            <div
+                class="col-span-12 lg:col-span-8
+                       bg-white
+                       rounded-[25px]
+                       p-10
+                       min-h-[230px]
+                       flex flex-col justify-between">
+
+                <div>
+
+                    <h3 class="text-[32px] font-bold text-[#1F1F1F] mb-8">
+
+                        Laporan Digital Otomatis
+
+                    </h3>
+
+                    <p class="text-[16px]
+                              leading-8
+                              text-[#4B4B4B]
+                              max-w-[650px]">
+
+                        Dapatkan ringkasan kriteria hasil prediksi secara
+                        otomatis sebagai bahan evaluasi untuk meningkatkan
+                        partisipasi masyarakat di Posyandu Lavender.
+
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
-      <?php endforeach; ?>
     </div>
 
-  </section>
-  <!-- End : Explore Collections -->
+</section>
+<!-- End : Layanan -->
 
 </main>
-
 <?php include 'components/footer.php' ?>
